@@ -1,7 +1,20 @@
 package projects.farmersbay;
 
+import projects.farmersbay.model.User;
+import projects.farmersbay.controller.UserController;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        UserController userController = new UserController();
+
+        // Example usage of UserController
+        User user1 = new User(1, "Alice", "password123");
+        User user2 = new User(2, "Bob", "password456");
+        userController.create(user1);
+
+        User fetchedUser = userController.read(1);
+        if (fetchedUser != null) {
+            System.out.println("Fetched User: " + fetchedUser.getName());
+        }
     }
 }

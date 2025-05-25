@@ -1,11 +1,16 @@
 package projects.farmersbay;
 
 import projects.farmersbay.model.User;
+
+import java.sql.Connection;
+
 import projects.farmersbay.controller.UserController;
+import projects.farmersbay.database.Database;
 
 public class Main {
     public static void main(String[] args) {
         UserController userController = new UserController();
+        Connection conn = Database.connect();
 
         // Example usage of UserController
         User user1 = new User(1, "Alice", "password123");

@@ -5,7 +5,7 @@ public class User {
     private String name;
     private String password;
 
-    public User() {} // required for read from DB
+    public User() {}
 
     public User(Integer UserID, String name, String password) {
         this.UserID = UserID;

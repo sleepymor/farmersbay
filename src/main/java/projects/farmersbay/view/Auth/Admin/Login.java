@@ -1,4 +1,4 @@
-package projects.farmersbay.view.Auth;
+package projects.farmersbay.view.Auth.Admin;
 
 public class Login {
 

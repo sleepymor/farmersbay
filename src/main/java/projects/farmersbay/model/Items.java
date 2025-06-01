@@ -57,15 +57,4 @@ public class Items {
     public void setAdminId(int AdminID) {
         this.AdminID = AdminID;
     }
-
-    @Override
-    public String toString() {
-        return "Items{"
-                + "id=" + id
-                + ", itemName='" + itemName + '\''
-                + ", price=" + price
-                + ", stock=" + stock
-                + ", AdminID=" + AdminID
-                + '}';
-    }
 }

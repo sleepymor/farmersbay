@@ -25,12 +25,4 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.CategoryName = categoryName;
     }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "CategoryId=" + CategoryId +
-                ", CategoryName='" + CategoryName + '\'' +
-                '}';
-    }
 }

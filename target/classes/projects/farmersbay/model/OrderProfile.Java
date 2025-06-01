@@ -44,15 +44,4 @@ public class OrderProfile {
     public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
-
-    @Override
-    public String toString() {
-        return "OrderProfile{" +
-                "id=" + id +
-                ", userID=" + userID +
-                ", orderStatus='" + orderStatus + '\'' +
-                ", orderDate='" + orderDate + '\'' +
-                '}';
-    }
-
 }

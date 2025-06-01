@@ -12,7 +12,7 @@ JUnit 5 is used for unit testing.
 
 - **JDK 23** (Java Development Kit) for the development environment
 - **Java 17** as the compiler target version
-- **Java Swing** for building the graphical user interface (GUI)
+- **JavaFX** for building the graphical user interface (GUI)
 - **SQLite** as the embedded database
 - **JDBC** for connecting and interacting with SQLite
 - **JUnit 5** for writing and running unit tests
@@ -36,14 +36,13 @@ JUnit 5 is used for unit testing.
    git clone https://github.com/yourusername/yourproject.git
    cd yourproject
    ```
-
 2. Build the project using maven
 
    ```bash
    mvn clean compile
    ```
-
 3. Run the project
+
    ```bash
    mvn exec:java -Dexec.mainClass="your.package.Main"
    ```

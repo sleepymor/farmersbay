@@ -2,22 +2,22 @@ package projects.farmersbay.model;
 
 public class Admin {
 
-    private int id;
+    private int AdminID;
     private String username;
     private String password;
 
-    public Admin(int id, String username, String password) {
-        this.id = id;
+    public Admin(int AdminID, String username, String password) {
+        this.AdminID = AdminID;
         this.username = username;
         this.password = password;
     }
 
     public int getId() {
-        return id;
+        return AdminID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int AdminID) {
+        this.AdminID = AdminID;
     }
 
     public String getUsername() {
@@ -34,14 +34,5 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "Admin{"
-                + "id=" + id
-                + ", username='" + username + '\''
-                + ", password='" + password + '\''
-                + '}';
     }
 }

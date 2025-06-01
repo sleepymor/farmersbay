@@ -45,14 +45,4 @@ public class OrderItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    @Override
-    public String toString() {
-        return "OrderItem{"
-                + "id=" + id
-                + ", orderID=" + orderID
-                + ", itemID=" + itemID
-                + ", quantity=" + quantity
-                + '}';
-    }
 }

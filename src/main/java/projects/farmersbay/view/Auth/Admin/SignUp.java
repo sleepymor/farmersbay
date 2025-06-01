@@ -2,23 +2,24 @@ package projects.farmersbay.view.Auth.Admin;
 
 import java.util.Scanner;
 
-import projects.farmersbay.controller.Public.AuthController;
-import projects.farmersbay.model.User;
+import projects.farmersbay.controller.Admin.AuthController;
+import projects.farmersbay.model.Admin;
 
 public class SignUp {
 
     public void show() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Create a username:");
-        String name = scanner.nextLine();
-        System.out.println("Create a password:");
-        String password = scanner.nextLine();
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Create a username:");
+            String name = scanner.nextLine();
+            System.out.println("Create a password:");
+            String password = scanner.nextLine();
 
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
+            Admin admin = new Admin();
+            admin.setName(name);
+            admin.setPassword(password);
 
-        AuthController auth = new AuthController();
-        auth.create(user);
+            AuthController auth = new AuthController();
+            auth.create(admin);
+        }
     }
 }

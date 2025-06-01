@@ -2,29 +2,32 @@ package projects.farmersbay.model;
 
 public class Admin {
 
-    private int AdminID;
+    private Integer AdminID;
     private String username;
     private String password;
 
-    public Admin(int AdminID, String username, String password) {
+    public Admin(Integer AdminID, String username, String password) {
         this.AdminID = AdminID;
         this.username = username;
         this.password = password;
     }
 
-    public int getId() {
+    public Admin() {
+    }
+
+    public Integer getId() {
         return AdminID;
     }
 
-    public void setId(int AdminID) {
+    public void setId(Integer AdminID) {
         this.AdminID = AdminID;
     }
 
-    public String getUsername() {
+    public String getName() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setName(String username) {
         this.username = username;
     }
 

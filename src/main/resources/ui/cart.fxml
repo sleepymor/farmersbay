@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane cacheShape="false" centerShape="false" prefHeight="79.0" prefWidth="960.0" scaleShape="false">
+         <children>
+            <Text fx:id="Logo" accessibleRole="BUTTON" fill="LIMEGREEN" fontSmoothingType="LCD" layoutX="28.0" layoutY="38.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            <TextField alignment="TOP_CENTER" cacheShape="false" centerShape="false" layoutX="339.0" layoutY="20.0" prefHeight="25.0" prefWidth="282.0" promptText="Search" scaleShape="false" style="-fx-border-color: #000000;">
+               <font>
+                  <Font size="11.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <Button fx:id="User" layoutX="865.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="User">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </Pane>
+      <Pane centerShape="false" prefHeight="482.0" prefWidth="960.0">
+         <children>
+            <Pane cacheShape="false" centerShape="false" layoutX="195.0" layoutY="2.0" prefHeight="482.0" prefWidth="600.0" scaleShape="false">
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="40.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/Farmer%20Bay%20(5).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Text fill="#a1a0a0" layoutX="220.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Pane layoutX="58.0" layoutY="16.0" prefHeight="138.0" prefWidth="524.0" style="-fx-border-color: #006400;">
+                     <children>
+                        <Text layoutX="155.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name Of Product">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d4d4d4" height="108.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="126.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Rectangle>
+                        <Text fill="#c1c1c1" layoutX="155.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Description">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Text>
+                        <TextField alignment="CENTER" centerShape="false" layoutX="155.0" layoutY="57.0" promptText="0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                        <Text layoutX="155.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="155.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" wrappingWidth="163.90625">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="43.0" fitWidth="56.0" layoutX="456.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/2.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="58.0" layoutY="172.0" prefHeight="138.0" prefWidth="524.0" style="-fx-border-color: #006400;">
+                     <children>
+                        <Text layoutX="155.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name Of Product">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d4d4d4" height="108.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="126.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Rectangle>
+                        <Text fill="#c1c1c1" layoutX="155.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Description">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Text>
+                        <TextField alignment="CENTER" centerShape="false" layoutX="155.0" layoutY="57.0" promptText="0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                        <Text layoutX="155.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="155.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" wrappingWidth="163.90625">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="43.0" fitWidth="56.0" layoutX="456.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/2.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane layoutY="404.0" prefHeight="78.0" prefWidth="960.0" style="-fx-background-color: #006400;">
+               <children>
+                  <Text fx:id="Logo1" accessibleRole="BUTTON" fill="WHITE" fontSmoothingType="LCD" layoutX="273.0" layoutY="45.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Prize" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Text>
+                  <Button graphicTextGap="1.0" layoutX="635.0" layoutY="26.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="115.0" text="Confirm">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</VBox>

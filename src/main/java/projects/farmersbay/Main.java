@@ -11,7 +11,7 @@ public class Main {
         UserController userController = new UserController();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== User Signup ===");
+        System.out.println("==== User Signup ====");
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
 

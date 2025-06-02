@@ -33,8 +33,8 @@ JUnit 5 is used for unit testing.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
-   cd yourproject
+   git clone https://https://github.com/sleepymor/farmersbay
+   cd farmersbay
    ```
 2. Build the project using maven
 

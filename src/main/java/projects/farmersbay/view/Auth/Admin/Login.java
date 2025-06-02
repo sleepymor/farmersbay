@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import projects.farmersbay.controller.Admin.AuthController;
 import projects.farmersbay.model.Admin;
+import projects.farmersbay.view.Admin.ItemCRUD;
 
 public class Login {
 
@@ -21,6 +22,8 @@ public class Login {
                 System.out.println("Welcome, " + admin.getName() + "!");
                 System.out.println("Current Admin ID set to: " + AuthController.currentAdminId);
                 
+                ItemCRUD crud = new ItemCRUD();
+                crud.showMenu();
             } else {
                 System.out.println("Invalid username or password. Try again.");
             }

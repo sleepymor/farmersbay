@@ -2,27 +2,29 @@ package projects.farmersbay.model;
 
 public class Category {
 
-    private int CategoryId
-    private String CategoryName;
+    private int CategoryID;
+    private String Title;
 
-    public Category(int categoryId, String categoryName) {
-        this.CategoryId = categoryId;
-        this.CategoryName = categoryName;
+    public Category() {}
+
+    public Category(int CategoryID, String Title) {
+        this.CategoryID = CategoryID;
+        this.Title = Title;
     }
 
-    public int getCategoryId() {
-        return CategoryId;
+    public int getCategoryID() {
+        return CategoryID;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.CategoryId = categoryId;
+    public void setCategoryID(int CategoryID) {
+        this.CategoryID = CategoryID;
     }
 
-    public String getCategoryName() {
-        return CategoryName;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.CategoryName = categoryName;
+    public void setTitle(String Title) {
+        this.Title = Title;
     }
 }

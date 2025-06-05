@@ -1,6 +1,11 @@
 package projects.farmersbay.controller.Admin;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,25 +101,32 @@ public class ItemsController extends Controller<Items> {
         return null;
     }
 
+    @Override
     public List<Items> readAll() {
         List<Items> itemsList = new ArrayList<>();
-        String sql = "SELECT * FROM Items";
+        String sql = "SELECT * FROM Items WHERE AdminID = ?";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            while (rs.next()) {
-                Items item = new Items();
-                item.setItemId(rs.getInt("ItemsID"));
-                item.setTitle(rs.getString("title"));
-                item.setPrice(rs.getDouble("price"));
-                item.setStock(rs.getInt("stock"));
-                item.setAdminId(rs.getInt("AdminID"));
-                itemsList.add(item);
+            pstmt.setInt(1, AuthController.currentAdminId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Items item = new Items();
+                    item.setItemId(rs.getInt("ItemsID"));
+                    item.setTitle(rs.getString("title"));
+                    item.setPrice(rs.getDouble("price"));
+                    item.setStock(rs.getInt("stock"));
+                    item.setAdminId(rs.getInt("AdminID"));
+                    itemsList.add(item);
+                }
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // consider using a logger in production
         }
 
         return itemsList;
     }
+
 }

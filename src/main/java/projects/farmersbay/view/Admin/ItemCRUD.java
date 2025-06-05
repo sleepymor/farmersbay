@@ -80,6 +80,13 @@ public class ItemCRUD {
     private void deleteItem() {
         System.out.print("Enter item ID to delete: ");
         int id = Integer.parseInt(scanner.nextLine());
+
+        Items item = itemsController.read(id);
+        if (item == null) {
+            System.out.println("Item not found.");
+            return;
+        }
+
         itemsController.delete(id);
     }
 

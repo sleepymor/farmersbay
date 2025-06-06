@@ -37,12 +37,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <TextField layoutX="36.0" layoutY="110.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter...">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <TextField layoutX="36.0" layoutY="186.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter...">
+            <TextField layoutX="36.0" layoutY="110.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter..." style="-fx-border-color: #000000;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -55,7 +50,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Button layoutX="90.0" layoutY="378.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" text="Login" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="90.0" layoutY="378.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Login" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -68,6 +63,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
+            <TextField layoutX="36.0" layoutY="181.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter..." style="-fx-border-color: #000000;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
          </children>
       </Pane>
    </children>

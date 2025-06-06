@@ -37,17 +37,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <TextField layoutX="36.0" layoutY="110.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter...">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <TextField layoutX="36.0" layoutY="186.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter...">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <Button layoutX="85.0" layoutY="386.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Create Account" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="85.0" layoutY="386.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #00bc01;" text="Create Account" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
@@ -73,7 +63,17 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <TextField layoutX="36.0" layoutY="258.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter...">
+            <TextField layoutX="36.0" layoutY="258.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter..." style="-fx-border-color: #000000;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <TextField layoutX="36.0" layoutY="187.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter..." style="-fx-border-color: #000000;">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <TextField layoutX="36.0" layoutY="110.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter..." style="-fx-border-color: #000000;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>

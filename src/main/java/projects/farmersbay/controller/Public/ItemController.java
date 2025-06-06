@@ -21,6 +21,7 @@ public class ItemController {
                 item.setTitle(rs.getString("title"));
                 item.setPrice(rs.getDouble("price"));
                 item.setStock(rs.getInt("stock"));
+                item.setImg(rs.getString("img"));
                 item.setAdminId(rs.getInt("AdminID"));
                 itemsList.add(item);
             

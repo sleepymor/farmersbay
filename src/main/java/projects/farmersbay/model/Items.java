@@ -7,15 +7,17 @@ public class Items {
     private double price;
     private int stock;
     private int AdminID;
+    private String img;
 
     public Items() {}
 
-    public  Items(int ItemsID, String title, double price, int stock, int AdminID) {
+    public  Items(int ItemsID, String title, double price, int stock, int AdminID, String img) {
         this.ItemsID = ItemsID;
         this.title = title;
         this.price = price;
         this.stock = stock;
         this.AdminID = AdminID;
+        this.img = img;
     }
 
     public int getItemId() {
@@ -56,5 +58,13 @@ public class Items {
 
     public void setAdminId(int AdminID) {
         this.AdminID = AdminID;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

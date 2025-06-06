@@ -14,6 +14,7 @@ import projects.farmersbay.controller.Controller;
 import projects.farmersbay.model.User;
 
 public class AuthController extends Controller<User> {
+    public static int currentUserId = -1;
 
     @Override
     public void create(User user) {
@@ -115,6 +116,7 @@ public class AuthController extends Controller<User> {
                 user.setId(rs.getInt("UserID"));
                 user.setName(rs.getString("name"));
                 user.setPassword(rs.getString("password"));
+                AuthController.currentUserId = user.getId();
                 System.out.println("Login successful for user: " + user.getName());
                 return user;
             }

@@ -1,6 +1,11 @@
 package projects.farmersbay.controller.Admin;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +17,14 @@ public class ItemsController extends Controller<Items> {
 
     @Override
     public void create(Items item) {
-        String sql = "INSERT INTO Items (title, price, stock, AdminID) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Items (title, price, stock, AdminID, img) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, item.getTitle());
             pstmt.setDouble(2, item.getPrice());
             pstmt.setInt(3, item.getStock());
+            pstmt.setString(5, item.getImg());
 
             // Automatically assign current admin ID
             pstmt.setInt(4, AuthController.currentAdminId);
@@ -37,7 +43,7 @@ public class ItemsController extends Controller<Items> {
 
     @Override
     public void update(Items item) {
-        String sql = "UPDATE Items SET title = ?, price = ?, stock = ?, AdminID = ? WHERE ItemsID = ?";
+        String sql = "UPDATE Items SET title = ?, price = ?, stock = ?, AdminID = ?, img = ? WHERE ItemsID = ?";
 
         try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -48,6 +54,7 @@ public class ItemsController extends Controller<Items> {
             // Automatically update to current admin ID
             pstmt.setInt(4, AuthController.currentAdminId);
             pstmt.setInt(5, item.getItemId());
+            pstmt.setString(6, item.getImg());
 
             int updated = pstmt.executeUpdate();
             System.out.println(updated > 0 ? "Item updated: " + item.getTitle() : "Item not found.");
@@ -86,6 +93,7 @@ public class ItemsController extends Controller<Items> {
                 item.setPrice(rs.getDouble("price"));
                 item.setStock(rs.getInt("stock"));
                 item.setAdminId(rs.getInt("AdminID"));
+                item.setImg(rs.getString("img"));
                 return item;
             }
         } catch (SQLException e) {
@@ -96,25 +104,33 @@ public class ItemsController extends Controller<Items> {
         return null;
     }
 
+    @Override
     public List<Items> readAll() {
         List<Items> itemsList = new ArrayList<>();
-        String sql = "SELECT * FROM Items";
+        String sql = "SELECT * FROM Items WHERE AdminID = ?";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            while (rs.next()) {
-                Items item = new Items();
-                item.setItemId(rs.getInt("ItemsID"));
-                item.setTitle(rs.getString("title"));
-                item.setPrice(rs.getDouble("price"));
-                item.setStock(rs.getInt("stock"));
-                item.setAdminId(rs.getInt("AdminID"));
-                itemsList.add(item);
+            pstmt.setInt(1, AuthController.currentAdminId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Items item = new Items();
+                    item.setItemId(rs.getInt("ItemsID"));
+                    item.setTitle(rs.getString("title"));
+                    item.setPrice(rs.getDouble("price"));
+                    item.setStock(rs.getInt("stock"));
+                    item.setAdminId(rs.getInt("AdminID"));
+                    item.setImg(rs.getString("img"));
+                    itemsList.add(item);
+                }
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // consider using a logger in production
         }
 
         return itemsList;
     }
+
 }

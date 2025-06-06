@@ -52,6 +52,9 @@ public class ItemCRUD {
         System.out.print("Enter item stock: ");
         item.setStock(Integer.parseInt(scanner.nextLine()));
 
+        System.out.print("Enter item image URL: ");
+        item.setImg(scanner.nextLine());
+
         item.setAdminId(AuthController.currentAdminId); // Important: Set to logged-in admin
         itemsController.create(item);
     }
@@ -71,6 +74,9 @@ public class ItemCRUD {
             System.out.print("New stock [" + item.getStock() + "]: ");
             item.setStock(Integer.parseInt(scanner.nextLine()));
 
+            System.out.print("New image URL [" + item.getImg() + "]: ");
+            item.setImg(scanner.nextLine());
+
             itemsController.update(item);
         } else {
             System.out.println("Item not found.");
@@ -80,6 +86,13 @@ public class ItemCRUD {
     private void deleteItem() {
         System.out.print("Enter item ID to delete: ");
         int id = Integer.parseInt(scanner.nextLine());
+
+        Items item = itemsController.read(id);
+        if (item == null) {
+            System.out.println("Item not found.");
+            return;
+        }
+
         itemsController.delete(id);
     }
 
@@ -93,6 +106,7 @@ public class ItemCRUD {
             System.out.println("Name: " + item.getTitle());
             System.out.println("Price: " + item.getPrice());
             System.out.println("Stock: " + item.getStock());
+            System.out.println("Image URL: " + item.getImg());
             System.out.println("Admin ID: " + item.getAdminId());
         } else {
             System.out.println("Item not found.");
@@ -102,7 +116,7 @@ public class ItemCRUD {
     private void listAllItems() {
         List<Items> items = itemsController.readAll();
         for (Items item : items) {
-            System.out.println(item.getItemId() + " | " + item.getTitle() + " | Rp" + item.getPrice() + " | Stock: " + item.getStock() + " | Admin ID: " + item.getAdminId());
+            System.out.println(item.getItemId() + " | " + item.getTitle() + " | Rp" + item.getPrice() + " | Stock: " + item.getStock() + " | Admin ID: " + item.getAdminId() + " | Image: " + item.getImg());
         }
     }
 }

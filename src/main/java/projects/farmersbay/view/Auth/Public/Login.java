@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import projects.farmersbay.controller.Public.AuthController;
 import projects.farmersbay.model.User;
+import projects.farmersbay.view.Public.Cart;
 
 public class Login {
 
@@ -19,7 +20,8 @@ public class Login {
 
             if (user != null) {
                 System.out.println("Welcome, " + user.getName() + "!");
-                // You can redirect them to the next menu/view here
+                Cart cart = new Cart();
+                cart.show();
             } else {
                 System.out.println("Invalid username or password. Try again.");
             }

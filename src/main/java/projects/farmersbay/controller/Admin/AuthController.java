@@ -11,7 +11,7 @@ import java.util.List;
 
 import static projects.farmersbay.config.Database.DB_URL;
 import projects.farmersbay.controller.Controller;
-import projects.farmersbay.model.Admin;
+import projects.farmersbay.model.Admin; 
 
 public class AuthController extends Controller<Admin> {
     public static int currentAdminId = -1;

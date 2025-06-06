@@ -9,7 +9,7 @@ import projects.farmersbay.model.Items;
 
 
 
-public class ItemController {
+public class ItemsController {
     public List<Items> readAll() {
         List<Items> itemsList = new ArrayList<>();
         String sql = "SELECT * FROM Items";

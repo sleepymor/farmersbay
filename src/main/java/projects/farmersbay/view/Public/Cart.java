@@ -1,10 +1,10 @@
 package projects.farmersbay.view.Public;
 
-import java.util.InputMismatchException; // Import for handling non-integer input
+import java.util.InputMismatchException; 
 import java.util.Scanner;
 
 import projects.farmersbay.controller.Public.CartController;
-import projects.farmersbay.controller.Public.AuthController; // To access currentUserId, though CartController uses it internally
+import projects.farmersbay.controller.Public.AuthController; 
 
 public class Cart {
 
@@ -18,23 +18,21 @@ public class Cart {
 
     public void show() {
         System.out.println("\n--- Your Shopping Cart ---");
-
-        // Display the current cart every time the menu is shown
-        cartController.cart(); // This method already prints cart details
+        cartController.cart(); 
 
         int choice = -1;
         while (choice != 0) {
             System.out.println("\nCart Options:");
             System.out.println("1. Add Item to Cart");
-            System.out.println("2. Remove Item from Cart (by Item ID)"); // Updated prompt
-            System.out.println("3. Update Item Quantity in Cart (by Item ID)"); // Updated prompt
+            System.out.println("2. Remove Item from Cart (by Item ID)"); 
+            System.out.println("3. Update Item Quantity in Cart (by Item ID)");
             System.out.println("4. Proceed to Checkout");
             System.out.println("0. Go Back");
             System.out.print("Enter your choice: ");
 
             try {
                 choice = scanner.nextInt();
-                scanner.nextLine(); // Consume newline character
+                scanner.nextLine(); 
 
                 switch (choice) {
                     case 1:
@@ -48,7 +46,7 @@ public class Cart {
                         break;
                     case 4:
                         proceedToCheckout();
-                        choice = 0; // Exit cart menu after checkout attempt
+                        choice = 0; 
                         break;
                     case 0:
                         System.out.println("Returning to previous menu.");
@@ -56,15 +54,15 @@ public class Cart {
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
-                // After each operation, refresh the cart view, unless exiting
+                
                 if (choice != 0) {
                     System.out.println("\n--- Updated Shopping Cart ---");
                     cartController.cart();
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine(); // Consume the invalid input
-                choice = -1; // Reset choice to keep the loop going
+                scanner.nextLine(); 
+                choice = -1; 
             } catch (Exception e) {
                 System.out.println("An unexpected error occurred: " + e.getMessage());
                 e.printStackTrace();
@@ -80,49 +78,47 @@ public class Cart {
         try {
             System.out.print("Enter Item ID to add: ");
             itemId = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
             System.out.print("Enter Quantity: ");
             quantity = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
             cartController.addToCart(itemId, quantity);
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter a valid number for Item ID and Quantity.");
-            scanner.nextLine(); // Consume the invalid input
+            scanner.nextLine(); 
         }
     }
 
     private void removeItemFromCart() {
         System.out.println("\n--- Remove Item from Cart ---");
-        // IMPORTANT: Prompt for Item ID, as per the schema, we identify by ItemID within an OrderID.
         System.out.print("Enter Item ID to remove from cart: ");
         try {
-            int itemIdToRemove = scanner.nextInt(); // Changed variable name to reflect it's an Item ID
-            scanner.nextLine(); // Consume newline
-            cartController.removeFromCart(itemIdToRemove); // Call controller with Item ID
+            int itemIdToRemove = scanner.nextInt(); 
+            scanner.nextLine(); 
+            cartController.removeFromCart(itemIdToRemove); 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter a valid number for Item ID.");
-            scanner.nextLine(); // Consume the invalid input
+            scanner.nextLine(); 
         }
     }
 
     private void updateItemInCart() {
         System.out.println("\n--- Update Item Quantity ---");
-        // IMPORTANT: Prompt for Item ID, as per the schema, we identify by ItemID within an OrderID.
         System.out.print("Enter Item ID to update quantity for: ");
         try {
-            int itemIdToUpdate = scanner.nextInt(); // Changed variable name to reflect it's an Item ID
-            scanner.nextLine(); // Consume newline
+            int itemIdToUpdate = scanner.nextInt(); 
+            scanner.nextLine(); 
 
             System.out.print("Enter new Quantity: ");
             int newQuantity = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
-            cartController.updateCart(itemIdToUpdate, newQuantity); // Call controller with Item ID
+            cartController.updateCart(itemIdToUpdate, newQuantity); 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter valid numbers.");
-            scanner.nextLine(); // Consume the invalid input
+            scanner.nextLine(); 
         }
     }
 

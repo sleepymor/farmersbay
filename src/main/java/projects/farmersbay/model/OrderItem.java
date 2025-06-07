@@ -2,24 +2,14 @@ package projects.farmersbay.model;
 
 public class OrderItem {
 
-    private int id;
     private int orderID;
     private int itemID;
-    private int quantity;
+    private int Quantity;
 
-    public OrderItem(int id, int orderID, int itemID, int quantity) {
-        this.id = id;
+    public OrderItem(int orderID, int itemID, int Quantity) {
         this.orderID = orderID;
         this.itemID = itemID;
-        this.quantity = quantity;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.Quantity = Quantity;
     }
 
     public int getOrderID() {
@@ -39,20 +29,10 @@ public class OrderItem {
     }
 
     public int getQuantity() {
-        return quantity;
+        return Quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderItem{"
-                + "id=" + id
-                + ", orderID=" + orderID
-                + ", itemID=" + itemID
-                + ", quantity=" + quantity
-                + '}';
+    public void setQuantity(int Quantity) {
+        this.Quantity = Quantity;
     }
 }

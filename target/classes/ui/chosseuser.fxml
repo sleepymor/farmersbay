@@ -9,7 +9,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="projects.farmersbay.testfxml.controllerchosseuser"
+      prefHeight="450.0" prefWidth="320.0">
    <children>
       <Pane prefHeight="450.0" prefWidth="320.0">
          <children>
@@ -18,7 +21,7 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Text>
-            <ImageView fitHeight="46.0" fitWidth="36.0" layoutX="268.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="exitImage" fitHeight="46.0" fitWidth="36.0" layoutX="268.0" layoutY="14.0" onMouseClicked="#handleExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icon/1.png" />
                </image>
@@ -26,15 +29,29 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button alignment="CENTER" layoutX="76.0" layoutY="205.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" style="-fx-background-color: #00bc01;" text="User" textFill="WHITE">
+            <Button fx:id="user"
+                    onMouseClicked="#handleUserClick"
+                    alignment="CENTER" layoutX="76.0" layoutY="205.0"
+                    mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0"
+                    style="-fx-background-color: #00bc10;" text="User" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" layoutX="170.0" layoutY="205.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" style="-fx-background-color: #00bc01;" text="Admin" textFill="WHITE">
+            <Button fx:id="admin"
+                    onMouseClicked="#handleAdminClick"
+                    alignment="CENTER" layoutX="170.0" layoutY="205.0"
+                    mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0"
+                    style="-fx-background-color: #00bc10;" text="Admin" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </Pane>

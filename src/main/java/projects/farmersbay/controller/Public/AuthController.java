@@ -1,19 +1,25 @@
-package projects.farmersbay.controller;
+package projects.farmersbay.controller.Public;
 
-import projects.farmersbay.model.User;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserController extends Controller<User> {
+import static projects.farmersbay.config.Database.DB_URL;
+import projects.farmersbay.controller.Controller;
+import projects.farmersbay.model.User;
 
-    private String url = "jdbc:sqlite:src/main/resources/database/farmersbay.sqlite";
+public class AuthController extends Controller<User> {
+    public static int currentUserId = -1;
 
     @Override
     public void create(User user) {
         String sql = "INSERT INTO User (name, password) VALUES (?, ?)";
-        try (Connection conn = DriverManager.getConnection(url); PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getPassword());
             pstmt.executeUpdate();
@@ -35,7 +41,7 @@ public class UserController extends Controller<User> {
     @Override
     public void update(User user) {
         String sql = "UPDATE User SET name = ?, password = ? WHERE UserID = ?";
-        try (Connection conn = DriverManager.getConnection(url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getPassword());
             pstmt.setInt(3, user.getId());
@@ -49,7 +55,7 @@ public class UserController extends Controller<User> {
     @Override
     public void delete(Integer UserID) {
         String sql = "DELETE FROM User WHERE UserID = ?";
-        try (Connection conn = DriverManager.getConnection(url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, UserID);
             int deleted = pstmt.executeUpdate();
             System.out.println(deleted > 0 ? "User deleted with ID: " + UserID : "User not found.");
@@ -61,7 +67,7 @@ public class UserController extends Controller<User> {
     @Override
     public User read(Integer UserID) {
         String sql = "SELECT * FROM User WHERE UserID = ?";
-        try (Connection conn = DriverManager.getConnection(url); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, UserID);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -83,7 +89,7 @@ public class UserController extends Controller<User> {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM User";
 
-        try (Connection conn = DriverManager.getConnection(url); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 User user = new User();
@@ -97,5 +103,27 @@ public class UserController extends Controller<User> {
         }
 
         return users;
+    }
+
+    public User login(String name, String password) {
+        String sql = "SELECT * FROM User WHERE name = ? AND password = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("UserID"));
+                user.setName(rs.getString("name"));
+                user.setPassword(rs.getString("password"));
+                AuthController.currentUserId = user.getId();
+                System.out.println("Login successful for user: " + user.getName());
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Login failed for user: " + name);
+        return null;
     }
 }

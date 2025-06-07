@@ -1,42 +1,52 @@
 package projects.farmersbay;
 
-import projects.farmersbay.model.User;
-import projects.farmersbay.controller.UserController;
-
-import java.util.List;
-import java.util.Scanner;
-
 public class Main {
+
     public static void main(String[] args) {
-        UserController userController = new UserController();
-        Scanner scanner = new Scanner(System.in);
+        projects.farmersbay.view.Auth.Public.Login loginView = new projects.farmersbay.view.Auth.Public.Login();
+        projects.farmersbay.view.Auth.Public.SignUp signUpView = new projects.farmersbay.view.Auth.Public.SignUp();
+        projects.farmersbay.view.Auth.Admin.Login adminLoginView = new projects.farmersbay.view.Auth.Admin.Login();
+        projects.farmersbay.view.Auth.Admin.SignUp adminSignUpView = new projects.farmersbay.view.Auth.Admin.SignUp();
 
-        System.out.println("==== User Signup ====");
-        System.out.print("Enter name: ");
-        String name = scanner.nextLine();
+        try (java.util.Scanner scanner = new java.util.Scanner(System.in)) {
+            System.out.println("Choose user type: \n1. Admin \n2. User");
+            int userType = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-
-        // Create new user without ID
-        User newUser = new User(null, name, password);
-        userController.create(newUser); // ID will be auto-generated
-
-        // Read the newly created user using their ID (if needed)
-        if (newUser.getId() != null) {
-            User user = userController.read(newUser.getId());
-            if (user != null) {
-                System.out.println("Retrieved user: " + user.getName());
+            switch (userType) {
+                case 1 -> {
+                    // Admin flow
+                    System.out.println("Admin Options: \n1. Login \n2. Sign Up");
+                    int adminChoice = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (adminChoice) {
+                        case 1 -> {
+                            System.out.println("Admin login selected.");
+                            adminLoginView.show();
+                        }
+                        case 2 -> {
+                            System.out.println("Admin sign up selected.");
+                            adminSignUpView.show();
+                        }
+                        default -> {
+                            System.out.println("Invalid choice. Please restart the application.");
+                        }
+                    }
+                }
+                case 2 -> {
+                    // User flow
+                    System.out.println("User Options: \n1. Login \n2. Sign Up");
+                    int userChoice = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (userChoice) {
+                        case 1 -> loginView.show();
+                        case 2 -> signUpView.show();
+                        default -> System.out.println("Invalid choice. Please restart the application.");
+                    }
+                }
+                default ->
+                    System.out.println("Invalid user type. Please restart the application.");
             }
         }
-
-        // List all users
-        System.out.println("\n=== All Users ===");
-        List<User> allUsers = userController.readAll();
-        for (User u : allUsers) {
-            System.out.println("User: " + u.getId() + " - " + u.getName());
-        }
-
-        scanner.close();
     }
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  <?xml version="1.0" encoding="UTF-8"?>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>

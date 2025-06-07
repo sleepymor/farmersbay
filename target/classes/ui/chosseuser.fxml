@@ -9,10 +9,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<<<<<<< HEAD
 <VBox xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="projects.farmersbay.testfxml.controllerchosseuser"
       prefHeight="450.0" prefWidth="320.0">
+=======
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
    <children>
       <Pane prefHeight="450.0" prefWidth="320.0">
          <children>
@@ -21,7 +26,11 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Text>
+<<<<<<< HEAD
             <ImageView fx:id="exitImage" fitHeight="46.0" fitWidth="36.0" layoutX="268.0" layoutY="14.0" onMouseClicked="#handleExit" pickOnBounds="true" preserveRatio="true">
+=======
+            <ImageView fitHeight="46.0" fitWidth="36.0" layoutX="268.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
                <image>
                   <Image url="@icon/1.png" />
                </image>
@@ -29,6 +38,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
+<<<<<<< HEAD
             <Button fx:id="user"
                     onMouseClicked="#handleUserClick"
                     alignment="CENTER" layoutX="76.0" layoutY="205.0"
@@ -37,10 +47,14 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+=======
+            <Button layoutX="76.0" layoutY="205.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" text="User">
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
+<<<<<<< HEAD
             <Button fx:id="admin"
                     onMouseClicked="#handleAdminClick"
                     alignment="CENTER" layoutX="170.0" layoutY="205.0"
@@ -52,6 +66,12 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+=======
+            <Button layoutX="170.0" layoutY="205.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" text="Admin">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
             </Button>
          </children>
       </Pane>

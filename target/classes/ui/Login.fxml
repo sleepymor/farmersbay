@@ -10,10 +10,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<<<<<<< HEAD
 <VBox xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="projects.farmersbay.testfxml.logincontroller"
       prefHeight="450.0" prefWidth="320.0">
+=======
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
    <children>
       <Pane prefHeight="450.0" prefWidth="320.0">
          <children>
@@ -22,7 +26,11 @@
                   <Font name="System Bold" size="21.0" />
                </font>
             </Text>
+<<<<<<< HEAD
             <ImageView fx:id="exitImage" fitHeight="46.0" fitWidth="36.0" layoutX="268.0" layoutY="14.0" onMouseClicked="#handleExit" pickOnBounds="true" preserveRatio="true">
+=======
+            <ImageView fitHeight="46.0" fitWidth="36.0" layoutX="268.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
                <image>
                   <Image url="@icon/1.png" />
                </image>
@@ -40,7 +48,16 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
+<<<<<<< HEAD
             <TextField layoutX="36.0" layoutY="110.0" prefHeight="25.0" prefWidth="257.0" promptText="  Enter..." style="-fx-border-color: #000000;">
+=======
+            <TextField layoutX="36.0" layoutY="110.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter...">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <TextField layoutX="36.0" layoutY="186.0" prefHeight="25.0" prefWidth="257.0" promptText="Enter...">
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -53,12 +70,20 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
+<<<<<<< HEAD
             <Button alignment="CENTER" layoutX="90.0" layoutY="378.0"  mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Login" textFill="WHITE">
+=======
+            <Button layoutX="90.0" layoutY="378.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" text="Login" textFill="WHITE">
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
+<<<<<<< HEAD
             <Text fx:id="sign" fill="LIMEGREEN" layoutX="116.0" layoutY="431.0" onMouseClicked="#handlesignClick" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: 3;" text="Create Account" textAlignment="CENTER">
+=======
+            <Text fill="LIMEGREEN" layoutX="116.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-underline: 3;" text="Create Account" textAlignment="CENTER">
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
                <font>
                   <Font size="13.0" />
                </font>
@@ -66,11 +91,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
+<<<<<<< HEAD
             <TextField layoutX="36.0" layoutY="181.0" prefHeight="25.0" prefWidth="257.0" promptText="  Enter..." style="-fx-border-color: #000000;">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
+=======
+>>>>>>> 24165ef5fe5fe9d2912aaecd7210fee152a02dc8
          </children>
       </Pane>
    </children>

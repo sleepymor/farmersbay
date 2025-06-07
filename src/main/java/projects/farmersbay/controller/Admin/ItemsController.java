@@ -133,4 +133,20 @@ public class ItemsController extends Controller<Items> {
         return itemsList;
     }
 
+    public boolean addStock(int itemId, int addStock) {
+        String sql = "UPDATE Items SET stock = stock + ? WHERE ItemsID = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, addStock);
+            pstmt.setInt(2, itemId);
+
+            int updated = pstmt.executeUpdate();
+            System.out.println(updated > 0 ? "Stock updated for item ID: " + itemId : "Item not found with ID: " + itemId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 }

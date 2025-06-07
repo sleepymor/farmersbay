@@ -19,8 +19,9 @@ public class ItemCRUD {
             System.out.println("2. Update Item");
             System.out.println("3. Delete Item");
             System.out.println("4. View Item by ID");
-            System.out.println("5. List All Items");
-            System.out.println("6. Back to Login");
+            System.out.println("5. Add Stock");
+            System.out.println("6. List All Items");
+            System.out.println("7. Back to Login");
             System.out.print("Choose an option: ");
 
             int choice = Integer.parseInt(scanner.nextLine());
@@ -30,8 +31,9 @@ public class ItemCRUD {
                 case 2 -> updateItem();
                 case 3 -> deleteItem();
                 case 4 -> viewItemById();
-                case 5 -> listAllItems();
-                case 6 -> {
+                case 5 -> addStock();
+                case 6 -> listAllItems();
+                case 7 -> {
                     System.out.println("Returning to Login...");
                     return;
                 }
@@ -108,6 +110,25 @@ public class ItemCRUD {
             System.out.println("Stock: " + item.getStock());
             System.out.println("Image URL: " + item.getImg());
             System.out.println("Admin ID: " + item.getAdminId());
+        } else {
+            System.out.println("Item not found.");
+        }
+    }
+
+    private void addStock() {
+        System.out.print("Enter item ID to add stock: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        Items item = itemsController.read(id);
+
+        if (item != null) {
+            System.out.print("Enter amount to add: ");
+            int amount = Integer.parseInt(scanner.nextLine());
+            boolean success = itemsController.addStock(id, amount);
+            if (success) {
+                System.out.println("Stock updated successfully.");
+            } else {
+                System.out.println("Failed to update stock.");
+            }
         } else {
             System.out.println("Item not found.");
         }

@@ -23,6 +23,19 @@ public class CartController {
         }
     }
 
+    private int getItemStock(int itemId) throws SQLException {
+        String sql = "SELECT stock FROM Items WHERE ItemsID = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, itemId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("stock");
+            } else {
+                throw new SQLException("Item with ID " + itemId + " not found in Items table.");
+            }
+        }
+    }
+
     private int getOrCreateUserOrderID(int userId) throws SQLException {
         String selectSql = "SELECT OrderID FROM OrderProfile WHERE UserID = ? AND OrderStatus = 'Cart'";
         String insertSql = "INSERT INTO OrderProfile (UserID, OrderStatus, OrderDate) VALUES (?, 'Cart', ?)";
@@ -56,6 +69,14 @@ public class CartController {
         if (quantity <= 0) {
             System.out.println("Quantity must be greater than zero to add an item.");
             return;
+        }
+
+        try {
+            if (quantity > getItemStock(itemId)) {
+                System.out.println("Insufficient stock for item ID: " + itemId + ". Available stock: " + getItemStock(itemId));
+                return;
+            }
+        } catch (SQLException ex) {
         }
 
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
@@ -140,7 +161,6 @@ public class CartController {
             System.err.println("Error updating cart: " + e.getMessage());
         }
     }
-
     public void cart() {
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
             int cartOrderId = -1;
@@ -151,7 +171,7 @@ public class CartController {
                 return;
             }
 
-            String sql = "SELECT oi.OrderID, oi.ItemsID, i.title, oi.Quantity, i.price "
+            String sql = "SELECT oi.OrderID, oi.ItemsID, i.title, oi.Quantity, i.price, i.stock "
                     + "FROM OrderItems oi "
                     + "JOIN Items i ON oi.ItemsID = i.ItemsID "
                     + "WHERE oi.OrderID = ?";
@@ -161,6 +181,7 @@ public class CartController {
 
                 System.out.println("\n--- Your Shopping Cart ---");
                 boolean hasItems = false;
+                boolean hasStockIssue = false;
                 while (rs.next()) {
                     hasItems = true;
                     int orderId = rs.getInt("OrderID");
@@ -168,13 +189,22 @@ public class CartController {
                     String itemTitle = rs.getString("title");
                     int quantity = rs.getInt("Quantity");
                     double itemPrice = rs.getDouble("price");
+                    int stock = rs.getInt("stock");
                     double subtotal = quantity * itemPrice;
 
-                    System.out.printf("Cart Order ID: %d, Item ID: %d, Item: %s, Quantity: %d, Price/Item: %.2f, Subtotal: %.2f%n",
-                            orderId, itemId, itemTitle, quantity, itemPrice, subtotal);
+                    if (quantity > stock) {
+                        hasStockIssue = true;
+                        System.out.printf("Cart Order ID: %d, Item ID: %d, Item: %s, Quantity: %d, Price/Item: %.2f, Subtotal: %.2f [INSUFFICIENT STOCK: %d available]%n",
+                                orderId, itemId, itemTitle, quantity, itemPrice, subtotal, stock);
+                    } else {
+                        System.out.printf("Cart Order ID: %d, Item ID: %d, Item: %s, Quantity: %d, Price/Item: %.2f, Subtotal: %.2f%n",
+                                orderId, itemId, itemTitle, quantity, itemPrice, subtotal);
+                    }
                 }
                 if (!hasItems) {
                     System.out.println("Your cart is empty.");
+                } else if (hasStockIssue) {
+                    System.out.println("WARNING: Some items in your cart have insufficient stock. Please update your cart.");
                 }
                 System.out.println("--------------------------\n");
             }
@@ -184,6 +214,7 @@ public class CartController {
         }
     }
 
+    // Modified checkout to reduce stock and update order status to 'Complete'
     public int checkout() {
         Connection conn = null;
         try {
@@ -201,6 +232,7 @@ public class CartController {
                 return -1;
             }
 
+            // Check if cart is empty
             String checkCartItemsSql = "SELECT COUNT(*) FROM OrderItems WHERE OrderID = ?";
             try (PreparedStatement checkPstmt = conn.prepareStatement(checkCartItemsSql)) {
                 checkPstmt.setInt(1, cartOrderId);
@@ -214,7 +246,45 @@ public class CartController {
                 }
             }
 
-            String updateOrderProfileSql = "UPDATE OrderProfile SET OrderStatus = 'Pending', OrderDate = ? WHERE OrderID = ? AND UserID = ? AND OrderStatus = 'Cart'";
+            // Validate stock for all items in cart
+            String cartItemsSql = "SELECT oi.ItemsID, oi.Quantity, i.stock FROM OrderItems oi JOIN Items i ON oi.ItemsID = i.ItemsID WHERE oi.OrderID = ?";
+            try (PreparedStatement cartItemsPstmt = conn.prepareStatement(cartItemsSql)) {
+                cartItemsPstmt.setInt(1, cartOrderId);
+                ResultSet rs = cartItemsPstmt.executeQuery();
+                while (rs.next()) {
+                    int itemId = rs.getInt("ItemsID");
+                    int quantity = rs.getInt("Quantity");
+                    int stock = rs.getInt("stock");
+                    if (quantity > stock) {
+                        System.out.printf("Insufficient stock for Item ID %d. Requested: %d, Available: %d. Please update your cart.%n", itemId, quantity, stock);
+                        if (conn != null) {
+                            conn.rollback();
+                        }
+                        return -1;
+                    }
+                }
+            }
+
+            // Reduce stock for each item
+            String updateStockSql = "UPDATE Items SET stock = stock - ? WHERE ItemsID = ?";
+            try (PreparedStatement updateStockPstmt = conn.prepareStatement(updateStockSql)) {
+                String getCartItemsSql = "SELECT ItemsID, Quantity FROM OrderItems WHERE OrderID = ?";
+                try (PreparedStatement getCartItemsPstmt = conn.prepareStatement(getCartItemsSql)) {
+                    getCartItemsPstmt.setInt(1, cartOrderId);
+                    ResultSet rs = getCartItemsPstmt.executeQuery();
+                    while (rs.next()) {
+                        int itemId = rs.getInt("ItemsID");
+                        int quantity = rs.getInt("Quantity");
+                        updateStockPstmt.setInt(1, quantity);
+                        updateStockPstmt.setInt(2, itemId);
+                        updateStockPstmt.addBatch();
+                    }
+                    updateStockPstmt.executeBatch();
+                }
+            }
+
+            // Update order status to 'Complete'
+            String updateOrderProfileSql = "UPDATE OrderProfile SET OrderStatus = 'Complete', OrderDate = ? WHERE OrderID = ? AND UserID = ? AND OrderStatus = 'Cart'";
             try (PreparedStatement updatePstmt = conn.prepareStatement(updateOrderProfileSql)) {
                 updatePstmt.setString(1, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                 updatePstmt.setInt(2, cartOrderId);
@@ -223,10 +293,8 @@ public class CartController {
                 if (updatedRows == 0) {
                     throw new SQLException("Failed to update order status. Cart not found or not in 'Cart' status for this user.");
                 }
-                System.out.println("Order status updated for Order ID: " + cartOrderId);
+                System.out.println("Order status updated to 'Complete' for Order ID: " + cartOrderId);
             }
-
-            System.out.println("Note: PriceAtPurchase column is not in OrderItems schema, so prices are not explicitly stored with the order items.");
 
             conn.commit();
             System.out.println("Checkout successful! Order ID: " + cartOrderId);

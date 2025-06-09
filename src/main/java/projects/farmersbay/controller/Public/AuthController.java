@@ -24,7 +24,6 @@ public class AuthController extends Controller<User> {
             pstmt.setString(2, user.getPassword());
             pstmt.executeUpdate();
 
-            // Get the generated ID
             ResultSet generatedKeys = pstmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int id = generatedKeys.getInt(1);

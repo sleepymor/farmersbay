@@ -11,50 +11,53 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.testfxml.productpagecontroller">
    <children>
-      <Pane cacheShape="false" centerShape="false" prefHeight="79.0" prefWidth="960.0" scaleShape="false" style="-fx-border-color: #32CD32;">
+      <Pane cacheShape="false" centerShape="false" prefHeight="79.0" prefWidth="960.0" scaleShape="false">
          <children>
-            <Text fx:id="Logo" accessibleRole="BUTTON" fill="LIMEGREEN" fontSmoothingType="LCD" layoutX="28.0" layoutY="38.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Text>
-            <TextField alignment="TOP_CENTER" cacheShape="false" centerShape="false" layoutX="339.0" layoutY="20.0" prefHeight="25.0" prefWidth="282.0" promptText="Search" scaleShape="false" style="-fx-border-color: #000000;">
-               <font>
-                  <Font size="11.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <Button fx:id="Cart" cacheShape="false" centerShape="false" layoutX="798.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Cart" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="User" layoutX="865.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="User">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+            <Pane layoutX="-10.0" layoutY="-12.0" prefHeight="90.0" prefWidth="980.0" style="-fx-border-color: #006400;">
+               <children>
+                  <Text fx:id="Logo" onMouseClicked="#handlemainClick" accessibleRole="BUTTON" fill="DARKGREEN" fontSmoothingType="LCD" layoutX="40.0" layoutY="57.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Farmers Bay" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Text>
+                  <TextField alignment="CENTER" cacheShape="false" centerShape="false" layoutX="349.0" layoutY="37.0" prefHeight="25.0" prefWidth="282.0" promptText="Search" scaleShape="false" style="-fx-border-color: #006400; -fx-background-color: #ffffff;">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+                  <Button fx:id="User" alignment="CENTER" onMouseClicked="#handleuserClick" layoutX="872.0" layoutY="37.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #006400;" text="User" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="Cart" alignment="CENTER" onMouseClicked="#handlecartClick" layoutX="775.0" layoutY="37.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #006400;" text="Cart" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
          </children>
       </Pane>
       <Pane centerShape="false" prefHeight="482.0" prefWidth="960.0">
          <children>
             <Pane cacheShape="false" centerShape="false" layoutX="195.0" layoutY="2.0" prefHeight="482.0" prefWidth="600.0" scaleShape="false">
                <children>
-                  <ImageView fitHeight="34.0" fitWidth="40.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="back" onMouseClicked="#handleback" fitHeight="34.0" fitWidth="40.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icon/Farmer%20Bay%20(5).png" />
                      </image>
@@ -80,7 +83,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField alignment="CENTER" centerShape="false" layoutX="218.0" layoutY="80.0" promptText="0" text="0">
+                  <TextField alignment="CENTER" centerShape="false" layoutX="218.0" layoutY="80.0" promptText="0" style="-fx-border-color: #000000;" text="0">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>

@@ -9,43 +9,46 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox fx:id="Main_Page" cacheShape="false" centerShape="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0" scaleShape="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.testfxml.mainpagecontroller">
    <children>
       <Pane cacheShape="false" centerShape="false" prefHeight="80.0" prefWidth="960.0" scaleShape="false" style="-fx-background-color: #006400;">
          <children>
-            <Text fx:id="Logo" accessibleRole="BUTTON" fill="WHITE" fontSmoothingType="LCD" layoutX="28.0" layoutY="38.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Logo" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Text>
-            <TextField alignment="TOP_CENTER" cacheShape="false" centerShape="false" layoutX="339.0" layoutY="20.0" prefHeight="25.0" prefWidth="282.0" promptText="Search" scaleShape="false">
-               <font>
-                  <Font size="11.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <Button fx:id="Cart" cacheShape="false" centerShape="false" layoutX="798.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Cart" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button fx:id="User" layoutX="865.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="User">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+            <Pane prefHeight="70.0" prefWidth="960.0" style="-fx-background-color: #006400;">
+               <children>
+                  <Text fx:id="Logo" accessibleRole="BUTTON" fill="WHITE" fontSmoothingType="LCD" layoutX="29.0" layoutY="41.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Farmers Bay" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Text>
+                  <TextField alignment="CENTER" cacheShape="false" centerShape="false" layoutX="339.0" layoutY="23.0" prefHeight="25.0" prefWidth="282.0" promptText="Search" scaleShape="false" style="-fx-border-color: #000000; -fx-background-color: #ffffff;">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+                  <Button fx:id="Cart" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="769.0" layoutY="23.0" onMouseClicked="#handlecartClick" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #ffffff;" text="Cart" textAlignment="CENTER" textFill="DARKGREEN">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="User" alignment="CENTER" layoutX="858.0" layoutY="23.0" onMouseClicked="#handleuserClick" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #ffffff;" text="User" textFill="DARKGREEN">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
          </children>
       </Pane>
       <Pane cacheShape="false" centerShape="false" prefHeight="499.0" prefWidth="960.0">
@@ -123,7 +126,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutX="63.0" layoutY="185.0" prefHeight="257.0" prefWidth="139.0">
+            <Pane onMouseClicked="#handleproductClick" fx:id="productpage" layoutX="238.0" layoutY="191.0" prefHeight="257.0" prefWidth="139.0">
                <children>
                   <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
                      <font>
@@ -134,7 +137,7 @@
                      </cursor>
                   </Text>
                   <Text layoutX="41.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order" textAlignment="CENTER" />
-                  <Text layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
+                  <Text  layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -142,7 +145,41 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Button fx:id="Cart1" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Add to Cart" textAlignment="CENTER">
+                  <Button fx:id="Cart1" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: #cccccc;" text="Add to Cart" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Box  cullFace="NONE" depth="100" drawMode="LINE" height="100" layoutX="70.0" layoutY="70.0" width="100">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Box>
+               </children>
+            </Pane>
+            <Pane layoutX="411.0" layoutY="191.0" prefHeight="257.0" prefWidth="139.0">
+               <children>
+                  <Text  layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Text>
+                  <Text layoutX="41.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order" textAlignment="CENTER" />
+                  <Text  layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Text>
+                  <Button fx:id="Cart11" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: #cccccc;" text="Add to Cart" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -157,7 +194,7 @@
                   </Box>
                </children>
             </Pane>
-            <Pane layoutX="202.0" layoutY="185.0" prefHeight="257.0" prefWidth="139.0">
+            <Pane layoutX="576.0" layoutY="191.0" prefHeight="257.0" prefWidth="139.0">
                <children>
                   <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
                      <font>
@@ -176,143 +213,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Button fx:id="Cart11" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Add to Cart" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Box cullFace="NONE" depth="100" drawMode="LINE" height="100" layoutX="70.0" layoutY="70.0" width="100">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Box>
-               </children>
-            </Pane>
-            <Pane layoutX="341.0" layoutY="185.0" prefHeight="257.0" prefWidth="139.0">
-               <children>
-                  <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Text layoutX="41.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order" textAlignment="CENTER" />
-                  <Text layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Button fx:id="Cart12" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Add to Cart" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Box cullFace="NONE" depth="100" drawMode="LINE" height="100" layoutX="70.0" layoutY="70.0" width="100">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Box>
-               </children>
-            </Pane>
-            <Pane layoutX="480.0" layoutY="185.0" prefHeight="257.0" prefWidth="139.0">
-               <children>
-                  <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Text layoutX="41.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order" textAlignment="CENTER" />
-                  <Text layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Button fx:id="Cart13" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Add to Cart" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Box cullFace="NONE" depth="100" drawMode="LINE" height="100" layoutX="70.0" layoutY="70.0" width="100">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Box>
-               </children>
-            </Pane>
-            <Pane layoutX="619.0" layoutY="185.0" prefHeight="257.0" prefWidth="139.0">
-               <children>
-                  <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Text layoutX="41.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order" textAlignment="CENTER" />
-                  <Text layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Button fx:id="Cart14" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Add to Cart" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Box cullFace="NONE" depth="100" drawMode="LINE" height="100" layoutX="70.0" layoutY="70.0" width="100">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Box>
-               </children>
-            </Pane>
-            <Pane layoutX="758.0" layoutY="185.0" prefHeight="257.0" prefWidth="139.0">
-               <children>
-                  <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Text layoutX="41.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order" textAlignment="CENTER" />
-                  <Text layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Button fx:id="Cart15" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Add to Cart" textAlignment="CENTER">
+                  <Button fx:id="Cart12" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: #cccccc;" text="Add to Cart" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

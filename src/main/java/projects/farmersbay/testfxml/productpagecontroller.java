@@ -1,5 +1,4 @@
 package projects.farmersbay.testfxml;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -8,19 +7,23 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class logincontroller {
+public class productpagecontroller {
     
     @FXML
-    private void handlesignClick(MouseEvent event) {
-        loadScene(event, "/ui/sign up.fxml");
+    private void handlecartClick(MouseEvent event) {
+        loadScene(event, "/ui/cart.fxml");
     }
     @FXML
-    private void handleLoginClick(MouseEvent event) {
+    private void handleuserClick(MouseEvent event) {
+        loadScene(event, "/ui/UserPage.fxml");
+    }
+    @FXML
+    private void handlemainClick(MouseEvent event) {
         loadScene(event, "/ui/Main.fxml");
     }
     @FXML
-    private void handleExit(MouseEvent event) {
-        loadScene(event, "/ui/chosseuser.fxml");
+    private void handleback(MouseEvent event) {
+        loadScene(event, "/ui/Main.fxml");
     }
     private void loadScene(MouseEvent event, String fxmlPath) {
         try {

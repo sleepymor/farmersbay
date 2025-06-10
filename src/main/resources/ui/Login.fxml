@@ -10,10 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="projects.farmersbay.testfxml.logincontroller"
-      prefHeight="450.0" prefWidth="320.0">
+<VBox prefHeight="450.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.testfxml.logincontroller">
    <children>
       <Pane prefHeight="450.0" prefWidth="320.0">
          <children>
@@ -53,7 +50,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Button alignment="CENTER" layoutX="90.0" layoutY="378.0"  mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Login" textFill="WHITE">
+            <Button fx:id="Login" alignment="CENTER" layoutX="90.0" layoutY="378.0" onMouseClicked="#handleLoginClick" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Login" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

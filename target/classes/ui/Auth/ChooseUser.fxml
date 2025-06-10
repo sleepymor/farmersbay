@@ -11,7 +11,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="projects.farmersbay.testfxml.controllerchosseuser"
+      fx:controller="projects.farmersbay.view.Auth.ChooseUser"
       prefHeight="450.0" prefWidth="320.0">
    <children>
       <Pane prefHeight="450.0" prefWidth="320.0">

@@ -4,7 +4,7 @@ module name {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
 
-    exports projects.farmersbay.testfxml;
+    // exports projects.farmersbay.testfxml.old;
     exports projects.farmersbay;
     exports projects.farmersbay.view.Auth.Admin;
     exports projects.farmersbay.view.Auth;
@@ -17,7 +17,7 @@ module name {
     // exports projects.farmersbay.view;
 
     
-    opens projects.farmersbay.testfxml to javafx.fxml;
+    // opens projects.farmersbay.testfxml.old to javafx.fxml;
     opens projects.farmersbay to javafx.fxml;
     opens projects.farmersbay.view.Auth.Admin to javafx.fxml;
     opens projects.farmersbay.view.Auth to javafx.fxml;

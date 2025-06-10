@@ -1,4 +1,4 @@
-package projects.farmersbay.testfxml;
+package projects.farmersbay.old.testfxml;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

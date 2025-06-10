@@ -13,7 +13,7 @@
    <children>
       <Pane cacheShape="false" centerShape="false" prefHeight="80.0" prefWidth="960.0" scaleShape="false" style="-fx-background-color: #006400;">
          <children>
-            <Pane prefHeight="70.0" prefWidth="960.0" style="-fx-background-color: #006400;">
+            <Pane prefHeight="70.0" prefWidth="960.0" style=   "-fx-background-color: #006400;">
                <children>
                   <Text fx:id="Logo" accessibleRole="BUTTON" fill="WHITE" fontSmoothingType="LCD" layoutX="29.0" layoutY="41.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Farmers Bay" textAlignment="CENTER">
                      <font>

@@ -17,7 +17,7 @@ public class ItemsController extends Controller<Items> {
 
     @Override
     public void create(Items item) {
-        String sql = "INSERT INTO Items (title, price, stock, AdminID, img, description) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Items (title, price, stock, AdminID, img, description, CategoryID) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -26,6 +26,8 @@ public class ItemsController extends Controller<Items> {
             pstmt.setInt(3, item.getStock());
             pstmt.setString(5, item.getImg());
             pstmt.setString(6, item.getDescription());
+            pstmt.setInt(7, item.getCategoryId());
+
 
             // Automatically assign current admin ID
             pstmt.setInt(4, AuthController.currentAdminId);
@@ -44,7 +46,7 @@ public class ItemsController extends Controller<Items> {
 
     @Override
     public void update(Items item) {
-        String sql = "UPDATE Items SET title = ?, price = ?, stock = ?, AdminID = ?, img = ?, description = ? WHERE ItemsID = ?";
+        String sql = "UPDATE Items SET title = ?, price = ?, stock = ?, AdminID = ?, img = ?, description = ?, CategoryID = ? WHERE ItemsID = ?";
 
         try (Connection conn = DriverManager.getConnection(DB_URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -57,6 +59,7 @@ public class ItemsController extends Controller<Items> {
             pstmt.setInt(5, item.getItemId());
             pstmt.setString(6, item.getImg());
             pstmt.setString(7, item.getDescription());
+            pstmt.setInt(8, item.getCategoryId());
 
 
             int updated = pstmt.executeUpdate();
@@ -98,6 +101,7 @@ public class ItemsController extends Controller<Items> {
                 item.setAdminId(rs.getInt("AdminID"));
                 item.setImg(rs.getString("img"));
                 item.setDescription(rs.getString("description"));
+                item.setCategoryId(rs.getInt("CategoryID"));
                 return item;
             }
         } catch (SQLException e) {
@@ -127,6 +131,7 @@ public class ItemsController extends Controller<Items> {
                     item.setAdminId(rs.getInt("AdminID"));
                     item.setImg(rs.getString("img"));
                     item.setDescription(rs.getString("description"));
+                    item.setCategoryId(rs.getInt("CategoryID"));
                     itemsList.add(item);
                 }
             }

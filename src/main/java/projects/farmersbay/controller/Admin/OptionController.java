@@ -1,32 +1,38 @@
-package projects.farmersbay.old.testfxml;
+package projects.farmersbay.controller.Admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class productpagecontroller {
+
+public class OptionController {
     
     @FXML
-    private void handlecartClick(MouseEvent event) {
-        loadScene(event, "/ui/cart.fxml");
-    }
+    private Button sign;
+
     @FXML
-    private void handleuserClick(MouseEvent event) {
-        loadScene(event, "/ui/UserPage.fxml");
-    }
+    private Button login;
+
     @FXML
-    private void handlemainClick(MouseEvent event) {
-        loadScene(event, "/ui/Main.fxml");
+    private void handleLoginClick(MouseEvent event) {
+        loadScene(event, "/ui/Auth/Admin/Login.fxml");
     }
+
     @FXML
-    private void handleback(MouseEvent event) {
-        loadScene(event, "/ui/Main.fxml");
+    private void handleSignClick(MouseEvent event) {
+        loadScene(event, "/ui/Auth/Admin/SignUp.fxml");
     }
-    private void loadScene(MouseEvent event, String fxmlPath) {
+
+    @FXML
+    private void handleExit(MouseEvent event) {
+        loadScene(event, "/ui/Auth/ChooseUser.fxml");
+    }
+     private void loadScene(MouseEvent event, String fxmlPath) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

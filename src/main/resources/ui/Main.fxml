@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.testfxml.mainpagecontroller">
+<VBox prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane cacheShape="false" centerShape="false" prefHeight="80.0" prefWidth="960.0" scaleShape="false" style="-fx-background-color: #006400;">
          <children>
-            <Pane prefHeight="70.0" prefWidth="960.0" style="-fx-background-color: #006400;">
+            <Pane prefHeight="70.0" prefWidth="960.0" style="-fx-background-color: #00bc01;">
                <children>
                   <Text fx:id="Logo" accessibleRole="BUTTON" fill="WHITE" fontSmoothingType="LCD" layoutX="29.0" layoutY="41.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Farmers Bay" textAlignment="CENTER">
                      <font>
@@ -23,7 +23,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <TextField alignment="CENTER" cacheShape="false" centerShape="false" layoutX="339.0" layoutY="23.0" prefHeight="25.0" prefWidth="282.0" promptText="Search" scaleShape="false" style="-fx-border-color: #000000; -fx-background-color: #ffffff;">
+                  <TextField fx:id="search" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="339.0" layoutY="23.0" prefHeight="25.0" prefWidth="282.0" promptText="Search" scaleShape="false" style="-fx-border-color: #000000; -fx-background-color: #ffffff;">
                      <font>
                         <Font size="11.0" />
                      </font>
@@ -31,7 +31,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Button fx:id="Cart" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="769.0" layoutY="23.0" onMouseClicked="#handlecartClick" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #ffffff;" text="Cart" textAlignment="CENTER" textFill="DARKGREEN">
+                  <Button fx:id="Cart" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="769.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #ffffff;" text="Cart" textAlignment="CENTER" textFill="#00bc01">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -39,7 +39,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="User" alignment="CENTER" layoutX="858.0" layoutY="23.0" onMouseClicked="#handleuserClick" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #ffffff;" text="User" textFill="DARKGREEN">
+                  <Button fx:id="User" alignment="CENTER" layoutX="858.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #ffffff;" text="User" textFill="#00bc01">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -51,9 +51,9 @@
             </Pane>
          </children>
       </Pane>
-      <Pane cacheShape="false" centerShape="false" prefHeight="499.0" prefWidth="960.0">
+      <Pane fx:id="product" cacheShape="false" centerShape="false" prefHeight="499.0" prefWidth="960.0">
          <children>
-            <Pane fx:id="Category" layoutX="150.0" layoutY="32.0" prefHeight="110.0" prefWidth="661.0" style="-fx-background-color: #006400;">
+            <Pane fx:id="Category" layoutX="150.0" layoutY="32.0" prefHeight="110.0" prefWidth="661.0" style="-fx-background-color: #00bc01;">
                <children>
                   <Text fill="WHITE" layoutX="132.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Just came across something really great—thought you might like it too." wrappingWidth="408.79998779296875">
                      <font>
@@ -126,7 +126,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane onMouseClicked="#handleproductClick" fx:id="productpage" layoutX="238.0" layoutY="191.0" prefHeight="257.0" prefWidth="139.0">
+            <Pane fx:id="productpage" layoutX="238.0" layoutY="191.0" prefHeight="257.0" prefWidth="139.0" style="-fx-border-color: #000000;">
                <children>
                   <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
                      <font>
@@ -137,7 +137,7 @@
                      </cursor>
                   </Text>
                   <Text layoutX="41.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order" textAlignment="CENTER" />
-                  <Text  layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
+                  <Text fx:id="price" layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -145,7 +145,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Button fx:id="Cart1" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: #cccccc;" text="Add to Cart" textAlignment="CENTER">
+                  <Button fx:id="addcart" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="17.0" layoutY="212.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: #cccccc;" text="Add to Cart" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -153,7 +153,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Box  cullFace="NONE" depth="100" drawMode="LINE" height="100" layoutX="70.0" layoutY="70.0" width="100">
+                  <Box cullFace="NONE" depth="100" drawMode="LINE" height="100" layoutX="70.0" layoutY="70.0" width="100.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -162,7 +162,7 @@
             </Pane>
             <Pane layoutX="411.0" layoutY="191.0" prefHeight="257.0" prefWidth="139.0">
                <children>
-                  <Text  layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
+                  <Text layoutX="53.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -171,7 +171,7 @@
                      </cursor>
                   </Text>
                   <Text layoutX="41.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order" textAlignment="CENTER" />
-                  <Text  layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
+                  <Text layoutX="25.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

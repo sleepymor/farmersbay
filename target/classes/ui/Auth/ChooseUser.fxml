@@ -23,7 +23,7 @@
             </Text>
             <ImageView fx:id="exitImage" fitHeight="46.0" fitWidth="36.0" layoutX="268.0" layoutY="14.0" onMouseClicked="#handleExit" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icon/1.png" />
+                  <Image url="@../icon/1.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />

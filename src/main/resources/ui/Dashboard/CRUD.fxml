@@ -2,19 +2,24 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.view.Admin.ItemCRUD">
    <children>
       <Pane prefHeight="455.0" prefWidth="320.0">
          <children>
-            <ImageView fitHeight="46.0" fitWidth="36.0" layoutX="270.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="46.0" fitWidth="36.0" layoutX="270.0" layoutY="14.0" onMouseClicked="#handleExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icon/1.png" />
                </image>
@@ -32,58 +37,50 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <Text layoutX="21.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo Product">
+            <Text layoutX="25.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo Product">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="21.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name Product">
+            <Text layoutX="26.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name Product">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="20.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Description" wrappingWidth="87.462890625">
+            <Text layoutX="26.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stock">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="19.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stock">
+            <Text layoutX="26.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="21.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+            <Text layoutX="26.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Description">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="19.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order">
-               <font>
-                  <Font name="System Bold" size="11.0" />
-               </font>
-            </Text>
-            <Text layoutX="19.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Description">
-               <font>
-                  <Font name="System Bold" size="11.0" />
-               </font>
-            </Text>
-            <TextField layoutX="121.0" layoutY="65.0" prefHeight="25.0" prefWidth="169.0" promptText=" Browse..." style="-fx-border-color: #000000;" />
-            <TextField layoutX="121.0" layoutY="99.0" prefHeight="25.0" prefWidth="169.0" promptText=" Enter..." style="-fx-border-color: #000000;" />
-            <TextField layoutX="121.0" layoutY="131.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
-            <TextField layoutX="121.0" layoutY="164.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
-            <TextField layoutX="121.0" layoutY="200.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
-            <TextField layoutX="121.0" layoutY="235.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
-            <TextField layoutX="121.0" layoutY="267.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
-            <Text layoutX="21.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
-               <font>
-                  <Font name="System Bold" size="11.0" />
-               </font>
-            </Text>
-            <TextField alignment="TOP_LEFT" layoutX="121.0" layoutY="303.0" prefHeight="91.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
-            <Button alignment="CENTER" layoutX="232.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: #00bc01;" text="Save" textFill="WHITE">
+            <TextField fx:id="nameField" layoutX="126.0" layoutY="105.0" prefHeight="25.0" prefWidth="169.0" promptText="  Enter..." style="-fx-border-color: #000000;" />
+            <TextField fx:id="priceField" onKeyTyped="#validateNumber" layoutX="126.0" layoutY="175.0" prefHeight="25.0" prefWidth="169.0" promptText="  Enter..." style="-fx-border-color: #000000;" />
+            <TextField fx:id="stockField" onKeyTyped="#validateNumber" layoutX="126.0" layoutY="207.0" prefHeight="25.0" prefWidth="169.0" promptText="  Enter..." style="-fx-border-color: #000000;" />
+            <TextArea fx:id="descField" prefRowCount="4" layoutX="126.0" layoutY="237.0" prefHeight="91.0" prefWidth="169.0" promptText="  Enter..." style="-fx-border-color: #000000;" />
+            <Button fx:id="save" onMouseClicked="#handleSave" alignment="CENTER" layoutX="239.0" layoutY="344.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: #00bc01;" text="Save" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font></Button>
+            <Text layoutX="26.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Category" wrappingWidth="49.24664306640625">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="categoryComboBox" layoutX="126.0" layoutY="141.0" prefHeight="25.0" prefWidth="169.0" promptText="  Chosse Category..." style="-fx-border-color: #000000;" />
+            <Button fx:id="Photo" onMouseClicked="#handleBrowseImage" alignment="CENTER" layoutX="126.0" layoutY="66.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="169.0" style="-fx-background-color: #00bc01;" text="Browse" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>

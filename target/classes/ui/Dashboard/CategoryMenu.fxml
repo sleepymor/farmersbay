@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.view.Admin.CategoryCRUD">
+   <children>
+      <Pane prefHeight="455.0" prefWidth="320.0">
+         <children>
+            <ImageView fx:id="backtodashboard" onMouseClicked="#handleExitCategory" fitHeight="46.0" fitWidth="36.0" layoutX="270.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/1.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Text layoutX="21.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Category">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text fill="#a6a6a6" layoutX="21.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add new category here">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <TextField fx:id="addField" layoutX="20.0" layoutY="63.0" prefHeight="21.0" prefWidth="282.0" promptText="   Enter Category...." style="-fx-border-color: #000000;" />
+            <Button onMouseClicked="#handleAddCategory" alignment="CENTER" layoutX="21.0" layoutY="95.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="282.0" style="-fx-background-color: #00bc01;" text="Add Category" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button  onMouseClicked="#handleDeleteCategory" alignment="CENTER" layoutX="19.0" layoutY="354.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="282.0" style="-fx-background-color: #00bc01;" text="Delete Category" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <TextField  fx:id="searchField" onKeyReleased="#handleSearchCategory" layoutX="22.0" layoutY="141.0" prefHeight="21.0" prefWidth="282.0" promptText="   search category..." style="-fx-border-color: #000000;" />
+            <Button alignment="CENTER" layoutX="20.0" layoutY="170.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="282.0" style="-fx-background-color: #00bc01;" text="Search Category" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Pane layoutX="22.0" layoutY="202.0" prefHeight="139.0" prefWidth="276.0" style="-fx-border-color: #000000;">
+               <children>
+                  <TableView  fx:id="tabelcategory" layoutX="0" layoutY="0"
+                       prefHeight="139.0" prefWidth="276.0" style="-fx-border-color: #000000;">
+                    <columns>
+                      <TableColumn prefWidth="35.0" fx:id="colId" text="No" />
+                      <TableColumn prefWidth="240.0" fx:id="colTitle" text="Category" />
+                    </columns>
+                  </TableView>
+               </children></Pane>
+         </children>
+      </Pane>
+   </children>
+</VBox>

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox cacheShape="false" centerShape="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="mainPane" cacheShape="false" centerShape="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.view.Admin.Dashboard">
    <children>
       <Pane prefHeight="560.0" prefWidth="940.0">
          <children>
@@ -36,17 +36,47 @@
             </Pane>
             <Pane layoutX="234.0" prefHeight="560.0" prefWidth="707.0">
                <children>
-                  <Button fx:id="crud" alignment="CENTER" layoutX="44.0" layoutY="507.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Add Item" textFill="WHITE">
+                  <Button fx:id="additem" onMouseClicked="#handleLoadCrud" alignment="CENTER" layoutX="44.0" layoutY="466.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Add Item" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
+                     <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                   </Button>
-                  <Button fx:id="Logout" alignment="CENTER" layoutX="524.0" layoutY="507.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Log Out" textFill="WHITE">
+                  <Button fx:id="Logout" alignment="CENTER" layoutX="524.0" layoutY="507.0" onMouseClicked="#handleLogoutClick" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Log Out" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
+                     <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                   </Button>
-                  <Pane fx:id="Tabel" layoutX="44.0" layoutY="57.0" prefHeight="430.0" prefWidth="620.0" style="-fx-background-color: #dcdcdc;" />
+                  <Pane fx:id="Tabel" layoutX="44.0" layoutY="27.0" prefHeight="430.0" prefWidth="620.0" style="-fx-background-color: #dcdcdc;" />
+                  <Button fx:id="addcategory" onMouseClicked="#handleCategoryCrud" alignment="CENTER" layoutX="44.0" layoutY="507.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Add/Edit Category" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                  </Button>
+                  <Button fx:id="deleteitem" alignment="CENTER" layoutX="192.0" layoutY="466.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Delete Item" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                  </Button>
+                  <Button fx:id="addstock" alignment="CENTER" layoutX="342.0" layoutY="466.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;" text="Add Stock" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                  </Button>
                </children>
             </Pane>
          </children>

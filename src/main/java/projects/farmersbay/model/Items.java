@@ -10,10 +10,11 @@ public class Items {
     private String img;
     private String description;
     private int CategoryID;
+    private String categoryName;
 
     public Items() {}
 
-    public  Items(int ItemsID, String title, double price, int stock, int AdminID, String img, String description, int CategoryID) {
+    public  Items(int ItemsID, String title, double price, int stock, int AdminID, String img, String description, int CategoryID, String categoryName) {
         this.ItemsID = ItemsID;
         this.title = title;
         this.price = price;
@@ -22,6 +23,7 @@ public class Items {
         this.img = img;
         this.description = description;
         this.CategoryID = CategoryID;
+        this.categoryName = categoryName;
     }
 
     public int getItemId() {
@@ -86,5 +88,13 @@ public class Items {
 
     public void setCategoryId(int CategoryID) {
         this.CategoryID = CategoryID;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

@@ -1,143 +1,140 @@
 package projects.farmersbay.view.Admin;
 
-import java.util.List;
-import java.util.Scanner;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
+import projects.farmersbay.model.Items;
 import projects.farmersbay.controller.Admin.ItemsController;
 import projects.farmersbay.controller.Admin.AuthController;
-import projects.farmersbay.model.Items;
+import projects.farmersbay.model.Category;
+import projects.farmersbay.controller.Admin.CategoryController;
 
-public class ItemCRUD {
-    
-    private final Scanner scanner = new Scanner(System.in);
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.List;
+
+public class ItemCRUD implements Initializable {
+
+    @FXML private TextField nameField;
+    @FXML private TextField priceField;
+    @FXML private TextField stockField;
+    @FXML private TextArea descField;
+    @FXML private ComboBox<Category> categoryComboBox;
+    @FXML private Button Photo;
+    @FXML private Button save;
+
+    private File selectedImageFile;
     private final ItemsController itemsController = new ItemsController();
+    private final CategoryController categoryController = new CategoryController();
 
-    public void showMenu() {
-        while (true) {
-            System.out.println("\n===== Item CRUD Menu =====");
-            System.out.println("1. Create Item");
-            System.out.println("2. Update Item");
-            System.out.println("3. Delete Item");
-            System.out.println("4. View Item by ID");
-            System.out.println("5. Add Stock");
-            System.out.println("6. List All Items");
-            System.out.println("7. Back to Login");
-            System.out.print("Choose an option: ");
+    
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-            int choice = Integer.parseInt(scanner.nextLine());
+    List<Category> categories = categoryController.readAll();  
+    categoryComboBox.getItems().addAll(categories);
 
-            switch (choice) {
-                case 1 -> createItem();
-                case 2 -> updateItem();
-                case 3 -> deleteItem();
-                case 4 -> viewItemById();
-                case 5 -> addStock();
-                case 6 -> listAllItems();
-                case 7 -> {
-                    System.out.println("Returning to Login...");
-                    return;
-                }
-                default -> System.out.println("Invalid option.");
-            }
+    categoryComboBox.setCellFactory(param -> new javafx.scene.control.ListCell<>() {
+        @Override
+        protected void updateItem(Category category, boolean empty) {
+            super.updateItem(category, empty);
+            setText(empty || category == null ? null : category.getTitle());
+        }
+    });
+    categoryComboBox.setButtonCell(new javafx.scene.control.ListCell<>() {
+        @Override
+        protected void updateItem(Category category, boolean empty) {
+            super.updateItem(category, empty);
+            setText(empty || category == null ? null : category.getTitle());
+        }
+    });
+
+    priceField.setText("Rp.");
+    priceField.textProperty().addListener((obs, oldVal, newVal) -> {
+        if (!newVal.startsWith("Rp.")) {
+            priceField.setText("Rp.");
+        }
+    });
+}
+
+    @FXML
+    private void handleBrowseImage(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Image");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        Stage stage = (Stage) Photo.getScene().getWindow();
+        selectedImageFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedImageFile != null) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Image Upload");
+        alert.setHeaderText(null);
+        alert.setContentText("Foto berhasil ditambahkan!");
+        alert.showAndWait();
         }
     }
 
-    private void createItem() {
-        Items item = new Items();
-
-        System.out.print("Enter item name: ");
-        item.setTitle(scanner.nextLine());
-
-        System.out.print("Enter item price: ");
-        item.setPrice(Double.parseDouble(scanner.nextLine()));
-
-        System.out.print("Enter item stock: ");
-        item.setStock(Integer.parseInt(scanner.nextLine()));
-
-        System.out.print("Enter item image URL: ");
-        item.setImg(scanner.nextLine());
-
-        item.setAdminId(AuthController.currentAdminId); // Important: Set to logged-in admin
-        itemsController.create(item);
+    @FXML
+private void handleSave(MouseEvent event) {
+    String name = nameField.getText();
+    String priceText = priceField.getText().replace("Rp.", "").trim();
+    String stockText = stockField.getText();
+    String desc = descField.getText();
+    Category selectedCategory = categoryComboBox.getValue(); 
+    if (name.isEmpty() || priceText.isEmpty() || stockText.isEmpty() || selectedCategory == null || selectedImageFile == null) {
+        System.out.println("Please complete all fields");
+         {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Input Tidak Lengkap");
+        alert.setHeaderText(null);
+        alert.setContentText("Harap lengkapi semua field terlebih dahulu!");
+        alert.showAndWait();
+        return;
+    }
     }
 
-    private void updateItem() {
-        System.out.print("Enter item ID to update: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        Items item = itemsController.read(id);
+    Items item = new Items();
+    item.setTitle(name);
+    item.setPrice(Double.parseDouble(priceText));
+    item.setStock(Integer.parseInt(stockText));
+    item.setDescription(desc);
+    item.setCategoryName(selectedCategory.getTitle());
+    item.setImg(selectedImageFile.toURI().toString());
+    item.setAdminId(AuthController.currentAdminId);
 
-        if (item != null) {
-            System.out.print("New name [" + item.getTitle() + "]: ");
-            item.setTitle(scanner.nextLine());
+    itemsController.create(item);
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Berhasil");
+    alert.setHeaderText(null);
+    alert.setContentText("Item berhasil ditambahkan!");
+    alert.showAndWait();
 
-            System.out.print("New price [" + item.getPrice() + "]: ");
-            item.setPrice(Double.parseDouble(scanner.nextLine()));
-
-            System.out.print("New stock [" + item.getStock() + "]: ");
-            item.setStock(Integer.parseInt(scanner.nextLine()));
-
-            System.out.print("New image URL [" + item.getImg() + "]: ");
-            item.setImg(scanner.nextLine());
-
-            itemsController.update(item);
-        } else {
-            System.out.println("Item not found.");
-        }
+    if (Dashboard.staticTableRef != null) {
+        Dashboard.staticTableRef.getItems().add(item);
     }
 
-    private void deleteItem() {
-        System.out.print("Enter item ID to delete: ");
-        int id = Integer.parseInt(scanner.nextLine());
-
-        Items item = itemsController.read(id);
-        if (item == null) {
-            System.out.println("Item not found.");
-            return;
-        }
-
-        itemsController.delete(id);
+    ((Stage) save.getScene().getWindow()).close();
+}
+    @FXML
+    private void validateNumber(MouseEvent event) {
+      
     }
 
-    private void viewItemById() {
-        System.out.print("Enter item ID: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        Items item = itemsController.read(id);
-
-        if (item != null) {
-            System.out.println("Item ID: " + item.getItemId());
-            System.out.println("Name: " + item.getTitle());
-            System.out.println("Price: " + item.getPrice());
-            System.out.println("Stock: " + item.getStock());
-            System.out.println("Image URL: " + item.getImg());
-            System.out.println("Admin ID: " + item.getAdminId());
-        } else {
-            System.out.println("Item not found.");
-        }
+    @FXML
+    private void handleExit(MouseEvent event) {
+        ((Stage) save.getScene().getWindow()).close();
     }
 
-    private void addStock() {
-        System.out.print("Enter item ID to add stock: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        Items item = itemsController.read(id);
-
-        if (item != null) {
-            System.out.print("Enter amount to add: ");
-            int amount = Integer.parseInt(scanner.nextLine());
-            boolean success = itemsController.addStock(id, amount);
-            if (success) {
-                System.out.println("Stock updated successfully.");
-            } else {
-                System.out.println("Failed to update stock.");
-            }
-        } else {
-            System.out.println("Item not found.");
-        }
-    }
-
-    private void listAllItems() {
-        List<Items> items = itemsController.readAll();
-        for (Items item : items) {
-            System.out.println(item.getItemId() + " | " + item.getTitle() + " | Rp" + item.getPrice() + " | Stock: " + item.getStock() + " | Admin ID: " + item.getAdminId() + " | Image: " + item.getImg());
-        }
-    }
+    
 }

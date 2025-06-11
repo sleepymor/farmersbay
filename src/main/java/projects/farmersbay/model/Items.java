@@ -8,16 +8,18 @@ public class Items {
     private int stock;
     private int AdminID;
     private String img;
+    private String description;
 
     public Items() {}
 
-    public  Items(int ItemsID, String title, double price, int stock, int AdminID, String img) {
+    public  Items(int ItemsID, String title, double price, int stock, int AdminID, String img, String description) {
         this.ItemsID = ItemsID;
         this.title = title;
         this.price = price;
         this.stock = stock;
         this.AdminID = AdminID;
         this.img = img;
+        this.description = description;
     }
 
     public int getItemId() {
@@ -66,5 +68,13 @@ public class Items {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

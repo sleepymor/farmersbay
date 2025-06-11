@@ -1,12 +1,15 @@
 package projects.farmersbay.controller.Public;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import static projects.farmersbay.config.Database.DB_URL;
 import projects.farmersbay.model.Items;
-
 
 
 public class ItemsController {
@@ -23,6 +26,7 @@ public class ItemsController {
                 item.setStock(rs.getInt("stock"));
                 item.setImg(rs.getString("img"));
                 item.setAdminId(rs.getInt("AdminID"));
+                item.setDescription(rs.getString("description"));
                 itemsList.add(item);
             
             }

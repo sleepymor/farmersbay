@@ -5,27 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class ChooseUser {
 
-    
-    @FXML
-    private Button admin;
-
-    @FXML
-    private Button user;
-
     @FXML
     private void handleAdminClick(MouseEvent event) {
-        loadScene(event, "/ui/optionAdmin.fxml");
+        loadScene(event, "/ui/Auth/Admin/Option.fxml");
     }
 
     @FXML
     private void handleUserClick(MouseEvent event) {
-        loadScene(event, "/ui/optionUser.fxml");
+        loadScene(event, "/ui/Auth/Public/Option.fxml");
     }
 
      @FXML

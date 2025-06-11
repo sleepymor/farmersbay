@@ -1,4 +1,4 @@
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -10,14 +10,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="455.0" prefWidth="320.0">
          <children>
             <ImageView fitHeight="46.0" fitWidth="36.0" layoutX="270.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icon/1.png" />
+                  <Image url="@../icon/1.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -43,7 +42,7 @@
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="22.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Description" wrappingWidth="87.462890625">
+            <Text layoutX="20.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Description" wrappingWidth="87.462890625">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -63,25 +62,28 @@
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="20.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Description">
+            <Text layoutX="19.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Description">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <TextField layoutX="121.0" layoutY="65.0" prefHeight="25.0" prefWidth="169.0" promptText="Browse..." />
-            <TextField layoutX="121.0" layoutY="99.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." />
-            <TextField layoutX="121.0" layoutY="131.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." />
-            <TextField layoutX="121.0" layoutY="164.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." />
-            <TextField layoutX="121.0" layoutY="200.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." />
-            <TextField layoutX="121.0" layoutY="235.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." />
-            <TextField layoutX="121.0" layoutY="267.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." />
+            <TextField layoutX="121.0" layoutY="65.0" prefHeight="25.0" prefWidth="169.0" promptText=" Browse..." style="-fx-border-color: #000000;" />
+            <TextField layoutX="121.0" layoutY="99.0" prefHeight="25.0" prefWidth="169.0" promptText=" Enter..." style="-fx-border-color: #000000;" />
+            <TextField layoutX="121.0" layoutY="131.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
+            <TextField layoutX="121.0" layoutY="164.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
+            <TextField layoutX="121.0" layoutY="200.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
+            <TextField layoutX="121.0" layoutY="235.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
+            <TextField layoutX="121.0" layoutY="267.0" prefHeight="25.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
             <Text layoutX="21.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <TextField alignment="TOP_LEFT" layoutX="121.0" layoutY="303.0" prefHeight="91.0" prefWidth="169.0" promptText="Enter..." />
-            <Button layoutX="232.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Save" />
+            <TextField alignment="TOP_LEFT" layoutX="121.0" layoutY="303.0" prefHeight="91.0" prefWidth="169.0" promptText="Enter..." style="-fx-border-color: #000000;" />
+            <Button alignment="CENTER" layoutX="232.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: #00bc01;" text="Save" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font></Button>
          </children>
       </Pane>
    </children>

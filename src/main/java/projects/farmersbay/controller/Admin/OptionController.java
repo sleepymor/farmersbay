@@ -1,4 +1,4 @@
-package projects.farmersbay.testfxml;
+package projects.farmersbay.controller.Admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,29 +9,28 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class controllerchosseuser {
 
+public class OptionController {
     
     @FXML
-    private Button admin;
+    private Button sign;
 
     @FXML
-    private Button user;
+    private Button login;
 
     @FXML
-    private void handleAdminClick(MouseEvent event) {
-        loadScene(event, "/ui/optionAdmin.fxml");
+    private void handleLoginClick(MouseEvent event) {
+        loadScene(event, "/ui/Auth/Admin/Login.fxml");
     }
 
     @FXML
-    private void handleUserClick(MouseEvent event) {
-        loadScene(event, "/ui/optionUser.fxml");
+    private void handleSignClick(MouseEvent event) {
+        loadScene(event, "/ui/Auth/Admin/SignUp.fxml");
     }
 
-     @FXML
+    @FXML
     private void handleExit(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        loadScene(event, "/ui/Auth/ChooseUser.fxml");
     }
      private void loadScene(MouseEvent event, String fxmlPath) {
         try {

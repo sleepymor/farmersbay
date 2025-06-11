@@ -27,6 +27,7 @@ public class ItemsController {
                 item.setImg(rs.getString("img"));
                 item.setAdminId(rs.getInt("AdminID"));
                 item.setDescription(rs.getString("description"));
+                item.setCategoryId(rs.getInt("CategoryID"));
                 itemsList.add(item);
             
             }

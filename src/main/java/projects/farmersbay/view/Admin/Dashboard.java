@@ -46,14 +46,9 @@ public class Dashboard {
     tableView.setPrefSize(620, 430);
 
         // Gambar
-        TableColumn<Items, ImageView> imageCol = new TableColumn<>("Image");
-        imageCol.setCellValueFactory(cellData -> {
-            String path = cellData.getValue().getImg();
-            Image image = new Image(path, 50, 50, true, true);
-            ImageView iv = new ImageView(image);
-            return new ReadOnlyObjectWrapper<>(iv);
-        });
-        imageCol.setPrefWidth(100);
+        TableColumn<Items, String> colTitle = new TableColumn<>("Name");
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colTitle.setPrefWidth(150);
 
         // Nama
         TableColumn<Items, String> nameCol = new TableColumn<>("Name");
@@ -81,8 +76,6 @@ public class Dashboard {
         tableView.getColumns().addAll(imageCol, nameCol, priceCol, stockCol, descCol, catCol);
         Tabel.getChildren().add(tableView);
     }
-
-    
 
     @FXML
     private void handleLogoutClick(javafx.scene.input.MouseEvent event) {

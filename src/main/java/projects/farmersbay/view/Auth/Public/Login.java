@@ -85,6 +85,8 @@ public class Login {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(dashboardRoot));
                 stage.setTitle("FarmersBay");
+                stage.setMinWidth(960);
+                stage.setMaxWidth(960);
                 stage.show();
             } catch (Exception e) {
             e.printStackTrace();

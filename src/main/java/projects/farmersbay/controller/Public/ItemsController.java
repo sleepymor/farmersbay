@@ -15,7 +15,9 @@ import projects.farmersbay.model.Items;
 public class ItemsController {
     public List<Items> readAll() {
         List<Items> itemsList = new ArrayList<>();
-        String sql = "SELECT * FROM Items";
+        String sql = "SELECT i.*, c.CategoryName " +
+                      "FROM Items i " +
+                    "LEFT JOIN Category c ON i.CategoryID = c.CategoryID";
 
         try (Connection conn = DriverManager.getConnection(DB_URL); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -27,7 +29,7 @@ public class ItemsController {
                 item.setImg(rs.getString("img"));
                 item.setAdminId(rs.getInt("AdminID"));
                 item.setDescription(rs.getString("description"));
-                item.setCategoryId(rs.getInt("CategoryID"));
+                item.setCategoryName(rs.getString("CategoryName"));
                 itemsList.add(item);
             
             }

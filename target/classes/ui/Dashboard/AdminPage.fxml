@@ -45,14 +45,14 @@
                                 </Button>
                                 <Button fx:id="deleteitem" layoutX="18.0" layoutY="60.0" mnemonicParsing="false"
                                         prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;"
-                                        text="Delete Item" textFill="WHITE">
+                                        text="Delete Item" onMouseClicked="#handleDeleteItem" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="13.0"/>
                                     </font>
                                 </Button>
                                 <Button fx:id="addstock" layoutX="18.0" layoutY="109.0" mnemonicParsing="false"
                                         prefHeight="31.0" prefWidth="140.0" style="-fx-background-color: #00bc01;"
-                                        text="Add Stock" textFill="WHITE">
+                                        text="Add Stock" textFill="WHITE" onMouseClicked="#handleAddStock" >
                                     <font>
                                         <Font name="System Bold" size="13.0"/>
                                     </font>
@@ -77,12 +77,10 @@
                         <Line layoutX="117.0" layoutY="84.0" startX="-100.0" endX="100.0" stroke="WHITE"/>
                     </children>
                 </Pane>
-
-                <!-- Content Area -->
                 <Pane layoutX="234.0" prefHeight="560.0" prefWidth="707.0">
                     <children>
-                        <Pane fx:id="Tabel" layoutX="44.0" layoutY="27.0" prefHeight="430.0" prefWidth="620.0"
-                              style="-fx-background-color: #dcdcdc;"/>
+                        <Pane fx:id="Tabel" layoutX="44.0" layoutY="27.0" prefHeight="488.0" prefWidth="620.0"
+                              style="-fx-background-color:rgb(197, 193, 193);"/>
                     </children>
                 </Pane>
             </children>

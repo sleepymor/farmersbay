@@ -3,6 +3,7 @@ module name {
     requires javafx.fxml;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
+    requires javafx.graphics;
 
     // exports projects.farmersbay.testfxml.old;
     exports projects.farmersbay;
@@ -14,8 +15,9 @@ module name {
     exports projects.farmersbay.view.Auth.Public;
     exports projects.farmersbay.controller.Public;
     exports projects.farmersbay.controller;
+    exports projects.farmersbay.view.Public;
     // exports projects.farmersbay.view;
-
+    
     
     // opens projects.farmersbay.testfxml.old to javafx.fxml;
     opens projects.farmersbay to javafx.fxml;
@@ -27,6 +29,8 @@ module name {
     opens projects.farmersbay.view.Auth.Public to javafx.fxml;
     opens projects.farmersbay.controller.Public to javafx.fxml;
     opens projects.farmersbay.controller to javafx.fxml;
+    opens projects.farmersbay.view.Public to javafx.fxml;
+
     // opens projects.farmersbay.view to javafx.fxml;
    
 }

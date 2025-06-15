@@ -1,5 +1,10 @@
 package projects.farmersbay.view.Admin;
 
+import java.io.File;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -7,20 +12,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.input.MouseEvent;
-
-import projects.farmersbay.model.Items;
-import projects.farmersbay.controller.Admin.ItemsController;
 import projects.farmersbay.controller.Admin.AuthController;
-import projects.farmersbay.model.Category;
 import projects.farmersbay.controller.Admin.CategoryController;
-
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.List;
+import projects.farmersbay.controller.Admin.ItemsController;
+import projects.farmersbay.model.Category;
+import projects.farmersbay.model.Items;
 
 public class ItemCRUD implements Initializable {
 
@@ -110,6 +109,7 @@ private void handleSave(MouseEvent event) {
     item.setStock(Integer.parseInt(stockText));
     item.setDescription(desc);
     item.setCategoryName(selectedCategory.getTitle());
+    item.setCategoryId(selectedCategory.getCategoryID());
     item.setImg(selectedImageFile.toURI().toString());
     item.setAdminId(AuthController.currentAdminId);
 

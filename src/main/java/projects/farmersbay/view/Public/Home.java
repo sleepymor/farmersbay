@@ -1,21 +1,24 @@
 package projects.farmersbay.view.Public;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -23,6 +26,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import projects.farmersbay.controller.Admin.CategoryController;
 import projects.farmersbay.controller.Public.ItemsController;
@@ -34,84 +39,135 @@ public class Home implements Initializable {
     @FXML
     private Pane categoryPane;
     private final CategoryController categoryController = new CategoryController();
-
     private final ItemsController itemController = new ItemsController();
-    private List<Pane> productPanes;
 
-    @FXML private Pane product1;
-    @FXML private Pane product2;
-    @FXML private Pane product3;
-    @FXML private Pane product4;
-    @FXML private Pane product5;
-    @FXML private Pane product6;
-    @FXML private Pane product7;
-    @FXML private Pane product8;
-    @FXML private Pane product9;
-    @FXML private Pane product10;
+    @FXML
+    private Pane product;
+
+    @FXML
+    private TextField search;
+
+    @FXML
+    private Text Logo;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     displayCategories();
-    productPanes = List.of(product1, product2, product3, product4, product5,
-                           product6, product7, product8, product9, product10);
-    displayProducts();
+    displayProduct();
+    search.textProperty().addListener((observable, oldValue, newValue) -> {
+        displayProductFiltered(newValue);
+    });
+    }
+    
+    private void displayProduct() {
+    List<Items> items = itemController.readAll();
+    System.out.println("Jumlah produk ditemukan: " + items.size());
+    
+    Logo.setOnMouseClicked(event -> {
+        displayProduct();
+        search.clear();
+    });
+
+    product.getChildren().clear();
+
+    if (items.isEmpty()) {
+        System.out.println("Belum ada produk.");
+        return;
     }
 
-    private void displayProducts() {
-    List<Items> items = itemController.readAll();
-    System.out.println("Jumlah produk ditemukan: " + items.size()); 
-    for (int i = 0; i < Math.min(items.size(), productPanes.size()); i++) {
-        Pane pane = productPanes.get(i);
-        Items item = items.get(i);
+    int itemsPerRow = 5;
+    double paneWidth = 139;
+    double paneHeight = 257;
+    double hGap = 30;
+    double vGap = 30;
 
-        pane.getChildren().clear();
+    double startX = (product.getPrefWidth() - (itemsPerRow * paneWidth + (itemsPerRow - 1) * hGap)) / 2;
+    double x = startX;
+    double y = 20;
+    int col = 0;
 
-        // Gambar produk
-        String imagePath = item.getImg();
-        Image image;
-        ImageView imageView;
+    for (Items item : items) {
+        Pane pane = new Pane();
+        pane.setPrefSize(paneWidth, paneHeight);
+        pane.setStyle("-fx-background-color: rgb(255, 255, 255);");
 
-        if (imagePath == null || imagePath.isEmpty() || !(new File(imagePath).exists())) {
-            System.out.println("Gambar tidak ditemukan: " + imagePath + ", gambar tidak akan ditampilkan.");
-            imageView = new ImageView(); // kosong, tidak tampil gambar
-        } else {
-            image = new Image(new File(imagePath).toURI().toString(), 60, 60, true, true);
-            imageView = new ImageView(image);
-    imageView.setFitHeight(100);
-    imageView.setFitWidth(100);
-    imageView.setLayoutX(70);
-    imageView.setLayoutY(70);
-    pane.getChildren().add(imageView); // tambahkan hanya jika gambar valid
-}
-        // Nama Produk
+        ImageView imageView = new ImageView();
+    
+        try {
+            if (item.getImg() != null && !item.getImg().isEmpty()) {
+                String imagePath = "file:" + item.getImg();
+                System.out.println("Trying to load image from: " + imagePath);
+                Image image = new Image(imagePath, false);
+                imageView.setImage(image);
+            } else {
+                System.out.println("Image path kosong atau null untuk item: " + item.getTitle());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        imageView.setLayoutX(14);
+        imageView.setLayoutY(14);
+
         Label title = new Label(item.getTitle());
         title.setFont(Font.font("System", FontWeight.BOLD, 16));
-        title.setLayoutX(53);
-        title.setLayoutY(145);
+        title.setPrefWidth(110);
+        title.setLayoutX(14);
+        title.setLayoutY(148);
+        title.setAlignment(Pos.CENTER);
+        title.setTextAlignment(TextAlignment.CENTER);
 
         // Stok
         Label stock = new Label("Stok: " + item.getStock());
-        stock.setFont(Font.font("System", 12));
-        stock.setLayoutX(47);
-        stock.setLayoutY(69);
+        stock.setFont(Font.font("System", FontWeight.NORMAL, 12));
+        stock.setPrefWidth(110);
+        stock.setLayoutX(14);
+        stock.setLayoutY(168);
+        stock.setAlignment(Pos.CENTER);
+        stock.setTextAlignment(TextAlignment.CENTER);
 
         // Harga
         Label price = new Label("Rp. " + item.getPrice());
         price.setFont(Font.font("System", FontWeight.BOLD, 16));
-        price.setLayoutX(25);
-        price.setLayoutY(196);
+        price.setPrefWidth(110);
+        price.setLayoutX(14);
+        price.setLayoutY(187);
+        price.setAlignment(Pos.CENTER);
+        price.setTextAlignment(TextAlignment.CENTER);
 
-        // Tombol "Add to Cart"
-        Button addToCart = new Button("Add to cart");
-        addToCart.setPrefSize(104, 25);
-        addToCart.setStyle("-fx-background-color: #d3d3d3; -fx-text-fill: black;");
-        addToCart.setLayoutX(17);
-        addToCart.setLayoutY(212);
+        // Tombol Add to Cart
+        Button addToCart = new Button("Add to Cart");
+        addToCart.setFont(Font.font("System", FontWeight.BOLD, 12));
+        addToCart.setPrefSize(88, 23);
+        addToCart.setLayoutX(26);
+        addToCart.setLayoutY(215);
+        addToCart.setStyle("-fx-background-color: #00bc01; -fx-text-fill: white;");
+        addToCart.setAlignment(Pos.CENTER);
 
-        // Tambahkan ke Pane
-        pane.getChildren().addAll(title, stock, price, addToCart);
+        pane.getChildren().addAll(imageView,title, stock, price, addToCart);
+        pane.setEffect(new DropShadow());
+
+        pane.setLayoutX(x);
+        pane.setLayoutY(y);
+        product.getChildren().add(pane);
+
+        col++;
+        if (col == itemsPerRow) {
+            col = 0;
+            x = startX;
+            y += paneHeight + vGap;
+        } else {
+            x += paneWidth + hGap;
+        }
     }
+
+    int totalRows = (int) Math.ceil((double) items.size() / itemsPerRow);
+    double totalHeight = y + paneHeight + vGap;
+    product.setPrefHeight(totalHeight);
 }
+
+
 
     public void displayCategories() {
     categoryPane.getChildren().removeIf(node ->
@@ -148,6 +204,107 @@ public class Home implements Initializable {
         System.out.println("Jumlah kategori ditemukan: " + categories.size());
         }
     }
+    
+    private void displayProductFiltered(String keyword) {
+    if (keyword == null || keyword.trim().isEmpty()) {
+        displayProduct();
+        return;
+    }
+
+    List<Items> items = itemController.readAll().stream()
+        .filter(item -> item.getTitle().toLowerCase().contains(keyword.toLowerCase()))
+        .collect(Collectors.toList());
+
+    product.getChildren().clear();
+
+    if (items.isEmpty()) {
+        System.out.println("Tidak ditemukan produk dengan keyword: " + keyword);
+        return;
+    }
+
+    int itemsPerRow = 5;
+    double paneWidth = 139;
+    double paneHeight = 257;
+    double hGap = 30;
+    double vGap = 30;
+
+    double startX = (product.getPrefWidth() - (itemsPerRow * paneWidth + (itemsPerRow - 1) * hGap)) / 2;
+    double x = startX;
+    double y = 20;
+    int col = 0;
+
+    for (Items item : items) {
+        Pane pane = new Pane();
+        pane.setPrefSize(paneWidth, paneHeight);
+        pane.setStyle("-fx-background-color: rgb(255, 255, 255);");
+
+        ImageView imageView = new ImageView();
+        try {
+            if (item.getImg() != null && !item.getImg().isEmpty()) {
+                Image image = new Image("file:" + item.getImg());
+                imageView.setImage(image);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        imageView.setLayoutX(14);
+        imageView.setLayoutY(14);
+
+        Label title = new Label(item.getTitle());
+        title.setFont(Font.font("System", FontWeight.BOLD, 16));
+        title.setPrefWidth(110);
+        title.setLayoutX(14);
+        title.setLayoutY(148);
+        title.setAlignment(Pos.CENTER);
+        title.setTextAlignment(TextAlignment.CENTER);
+
+        Label stock = new Label("Stok: " + item.getStock());
+        stock.setFont(Font.font("System", FontWeight.NORMAL, 12));
+        stock.setPrefWidth(110);
+        stock.setLayoutX(14);
+        stock.setLayoutY(168);
+        stock.setAlignment(Pos.CENTER);
+        stock.setTextAlignment(TextAlignment.CENTER);
+
+        Label price = new Label("Rp. " + item.getPrice());
+        price.setFont(Font.font("System", FontWeight.BOLD, 16));
+        price.setPrefWidth(110);
+        price.setLayoutX(14);
+        price.setLayoutY(187);
+        price.setAlignment(Pos.CENTER);
+        price.setTextAlignment(TextAlignment.CENTER);
+
+        Button addToCart = new Button("Add to Cart");
+        addToCart.setFont(Font.font("System", FontWeight.BOLD, 12));
+        addToCart.setPrefSize(88, 23);
+        addToCart.setLayoutX(26);
+        addToCart.setLayoutY(215);
+        addToCart.setStyle("-fx-background-color: #00bc01; -fx-text-fill: white;");
+        addToCart.setAlignment(Pos.CENTER);
+
+        pane.getChildren().addAll(imageView, title, stock, price, addToCart);
+        pane.setEffect(new DropShadow());
+
+        pane.setLayoutX(x);
+        pane.setLayoutY(y);
+        product.getChildren().add(pane);
+
+        col++;
+        if (col == itemsPerRow) {
+            col = 0;
+            x = startX;
+            y += paneHeight + vGap;
+        } else {
+            x += paneWidth + hGap;
+        }
+    }
+
+    int totalRows = (int) Math.ceil((double) items.size() / itemsPerRow);
+    double totalHeight = y + paneHeight + vGap;
+    product.setPrefHeight(totalHeight);
+}
 
     @FXML
     private Button User;
@@ -171,9 +328,9 @@ public class Home implements Initializable {
             stage.setScene(scene);
             stage.sizeToScene();
 
-            stage.setMinWidth(320);  // ganti sesuai kebutuhan
+            stage.setMinWidth(320);
             stage.setMinHeight(450);
-            stage.setResizable(false);
+            stage.setResizable(true);
 
             stage.show();
         } catch (IOException e) {

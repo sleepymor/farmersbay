@@ -27,6 +27,8 @@ public class Login {
             Stage stage = new Stage();
             stage.setTitle("FarmersBay");
             stage.setScene(new Scene(root));
+            stage.sizeToScene();
+            stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

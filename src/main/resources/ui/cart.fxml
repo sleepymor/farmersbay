@@ -7,11 +7,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.testfxml.cartcontroller">
+<VBox prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projects.farmersbay.view.Public.Cart">
    <children>
       <Pane cacheShape="false" centerShape="false" prefHeight="79.0" prefWidth="960.0" scaleShape="false">
          <children>
@@ -47,7 +46,7 @@
       </Pane>
       <Pane centerShape="false" prefHeight="482.0" prefWidth="960.0">
          <children>
-            <Pane cacheShape="false" centerShape="false" layoutX="195.0" layoutY="2.0" prefHeight="482.0" prefWidth="600.0" scaleShape="false">
+            <Pane fx:id="cartpane" cacheShape="false" centerShape="false" layoutX="195.0" layoutY="2.0" prefHeight="482.0" prefWidth="600.0" scaleShape="false">
                <children>
                   <ImageView fx:id="back" fitHeight="34.0" fitWidth="40.0" layoutX="14.0" layoutY="16.0" onMouseClicked="#handleback" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,56 +61,11 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Pane layoutX="58.0" layoutY="16.0" prefHeight="138.0" prefWidth="524.0" style="-fx-border-color: #006400;">
-                     <children>
-                        <Text layoutX="155.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name Of Product">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Text>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d4d4d4" height="108.0" layoutX="14.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="126.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Rectangle>
-                        <Text fill="#c1c1c1" layoutX="155.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Description">
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="155.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Min. Order">
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="155.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 000.000" wrappingWidth="163.90625">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="43.0" fitWidth="56.0" layoutX="456.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@icon/2.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                        <TextField alignment="CENTER" centerShape="false" layoutX="155.0" layoutY="60.0" promptText="0" style="-fx-border-color: #000000;" text="0">
-                           <cursor>
-                              <Cursor fx:constant="TEXT" />
-                           </cursor>
-                        </TextField>
-                     </children>
-                  </Pane>
                </children>
             </Pane>
             <Pane layoutY="404.0" prefHeight="78.0" prefWidth="960.0" style="-fx-background-color: #00bc01;">
                <children>
-                  <Text fx:id="Logo1" accessibleRole="BUTTON" fill="WHITE" fontSmoothingType="LCD" layoutX="253.0" layoutY="45.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Prize :" textAlignment="CENTER">
+                  <Text fx:id="Total" accessibleRole="BUTTON" fill="WHITE" fontSmoothingType="LCD" layoutX="253.0" layoutY="45.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price :" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>

@@ -1,140 +1,123 @@
 package projects.farmersbay.view.Public;
 
-import java.util.InputMismatchException; 
-import java.util.Scanner;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
 import projects.farmersbay.controller.Public.CartController;
+import projects.farmersbay.model.Items;
 import projects.farmersbay.controller.Public.AuthController; 
 
 public class Cart {
 
-    private Scanner scanner;
-    private CartController cartController;
+        @FXML
+    private Pane cartpane; // fx:id dari FXML
 
-    public Cart() {
-        this.scanner = new Scanner(System.in);
-        this.cartController = new CartController();
-    }
+    private List<Integer> cartItemIDs = new ArrayList<>(); // untuk mencegah duplikasi
 
-    public void show() {
-        System.out.println("\n--- Your Shopping Cart ---");
-        cartController.cart(); 
+    private double nextY = 16; // posisi Y awal
 
-        int choice = -1;
-        while (choice != 0) {
-            System.out.println("\nCart Options:");
-            System.out.println("1. Add Item to Cart");
-            System.out.println("2. Remove Item from Cart (by Item ID)"); 
-            System.out.println("3. Update Item Quantity in Cart (by Item ID)");
-            System.out.println("4. Proceed to Checkout");
-            System.out.println("0. Go Back");
-            System.out.print("Enter your choice: ");
+    public void addItemToCart(Items item) {
+        if (cartItemIDs.contains(item.getItemsID())) return; // skip jika sudah ditambahkan
+        cartItemIDs.add(item.getItemsID());
 
+        Pane itemPane = new Pane();
+        itemPane.setPrefSize(524, 138);
+        itemPane.setLayoutX(58);
+        itemPane.setLayoutY(nextY);
+
+        // Image produk
+        ImageView image = new ImageView();
+        try {
+            image.setImage(new Image("file:" + item.getImg()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        image.setFitWidth(130);
+        image.setFitHeight(109);
+        image.setLayoutX(14);
+        image.setLayoutY(16);
+
+        // Label title
+        Label title = new Label(item.getTitle());
+        title.setFont(Font.font("System", FontWeight.BOLD, 20));
+        title.setLayoutX(155);
+        title.setLayoutY(36);
+
+        // Label stock
+        Label stock = new Label("Stok: " + item.getStock());
+        stock.setFont(Font.font("System", FontWeight.BOLD, 11));
+        stock.setLayoutX(155);
+        stock.setLayoutY(48);
+
+        // TextField quantity
+        TextField quantityField = new TextField("1");
+        quantityField.setFont(Font.font("System", 12));
+        quantityField.setStyle("-fx-border-color: #00bc01;");
+        quantityField.setPrefWidth(50);
+        quantityField.setLayoutX(155);
+        quantityField.setLayoutY(60);
+
+        // Label harga total
+        Label priceLabel = new Label("Rp. " + item.getPrice());
+        priceLabel.setFont(Font.font("System", FontWeight.BOLD, 20));
+        priceLabel.setLayoutX(155);
+        priceLabel.setLayoutY(113);
+
+        
+        quantityField.textProperty().addListener((obs, oldVal, newVal) -> {
             try {
-                choice = scanner.nextInt();
-                scanner.nextLine(); 
-
-                switch (choice) {
-                    case 1:
-                        addItemToCart();
-                        break;
-                    case 2:
-                        removeItemFromCart();
-                        break;
-                    case 3:
-                        updateItemInCart();
-                        break;
-                    case 4:
-                        proceedToCheckout();
-                        choice = 0; 
-                        break;
-                    case 0:
-                        System.out.println("Returning to previous menu.");
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
-                }
-                
-                if (choice != 0) {
-                    System.out.println("\n--- Updated Shopping Cart ---");
-                    cartController.cart();
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine(); 
-                choice = -1; 
-            } catch (Exception e) {
-                System.out.println("An unexpected error occurred: " + e.getMessage());
-                e.printStackTrace();
+                int qty = Integer.parseInt(newVal);
+                int total = item.getPrice() * qty;
+                priceLabel.setText("Rp. " + total);
+            } catch (NumberFormatException e) {
+                priceLabel.setText("Rp. 0");
             }
-        }
+        });
+
+        // Tombol delete (icon)
+        ImageView deleteBtn = new ImageView(new Image("@icon/2.png"));
+        deleteBtn.setFitWidth(56);
+        deleteBtn.setFitHeight(43);
+        deleteBtn.setLayoutX(456);
+        deleteBtn.setLayoutY(48);
+        deleteBtn.setCursor(Cursor.HAND);
+
+        deleteBtn.setOnMouseClicked(event -> {
+            cartpane.getChildren().remove(itemPane);
+            cartItemIDs.remove((Integer) item.getItemsID());
+            realignCartItems();
+        });
+
+        itemPane.getChildren().addAll(image, title, stock, quantityField, priceLabel, deleteBtn);
+        cartpane.getChildren().add(itemPane);
+
+        nextY += 138 + 4;
     }
 
-    private void addItemToCart() {
-        System.out.println("\n--- Add Item to Cart ---");
-        int itemId = -1;
-        int quantity = -1;
-
-        try {
-            System.out.print("Enter Item ID to add: ");
-            itemId = scanner.nextInt();
-            scanner.nextLine(); 
-
-            System.out.print("Enter Quantity: ");
-            quantity = scanner.nextInt();
-            scanner.nextLine(); 
-
-            cartController.addToCart(itemId, quantity);
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a valid number for Item ID and Quantity.");
-            scanner.nextLine(); 
+    private void realignCartItems() {
+    double y = 16;
+    for (Node node : cartpane.getChildren()) {
+        if (node instanceof Pane) {
+            node.setLayoutY(y);
+            y += 138 + 4;
         }
     }
+    nextY = y;
+}
 
-    private void removeItemFromCart() {
-        System.out.println("\n--- Remove Item from Cart ---");
-        System.out.print("Enter Item ID to remove from cart: ");
-        try {
-            int itemIdToRemove = scanner.nextInt(); 
-            scanner.nextLine(); 
-            cartController.removeFromCart(itemIdToRemove); 
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a valid number for Item ID.");
-            scanner.nextLine(); 
-        }
-    }
 
-    private void updateItemInCart() {
-        System.out.println("\n--- Update Item Quantity ---");
-        System.out.print("Enter Item ID to update quantity for: ");
-        try {
-            int itemIdToUpdate = scanner.nextInt(); 
-            scanner.nextLine(); 
-
-            System.out.print("Enter new Quantity: ");
-            int newQuantity = scanner.nextInt();
-            scanner.nextLine(); 
-
-            cartController.updateCart(itemIdToUpdate, newQuantity); 
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter valid numbers.");
-            scanner.nextLine(); 
-        }
-    }
-
-    private void proceedToCheckout() {
-        System.out.println("\n--- Proceeding to Checkout ---");
-        int orderId = cartController.checkout();
-        if (orderId != -1) {
-            System.out.println("Checkout successful! Your order ID is: " + orderId);
-        } else {
-            System.out.println("Checkout failed. Please check your cart and try again.");
-        }
-    }
-
-    public void closeScanner() {
-        if (scanner != null) {
-            scanner.close();
-        }
-    }
 }

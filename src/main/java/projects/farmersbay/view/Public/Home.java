@@ -40,7 +40,7 @@ public class Home implements Initializable {
     private Pane categoryPane;
     private final CategoryController categoryController = new CategoryController();
     private final ItemsController itemController = new ItemsController();
-
+    
     @FXML
     private Pane product;
 
@@ -49,6 +49,9 @@ public class Home implements Initializable {
 
     @FXML
     private Text Logo;
+
+    @FXML
+    private Cart C;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -117,6 +120,7 @@ public class Home implements Initializable {
         title.setLayoutY(148);
         title.setAlignment(Pos.CENTER);
         title.setTextAlignment(TextAlignment.CENTER);
+        title.setOnMouseClicked(event -> openProductDetail(item));
 
         // Stok
         Label stock = new Label("Stok: " + item.getStock());
@@ -167,7 +171,23 @@ public class Home implements Initializable {
     product.setPrefHeight(totalHeight);
 }
 
+    private void openProductDetail(Items item) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/productpage.fxml"));
+        Parent root = loader.load();
 
+        Detail controller = loader.getController();
+        controller.setProductData(item);
+
+        // Ambil stage dari node yang aktif saat ini
+        Stage stage = (Stage) product.getScene().getWindow(); // Ganti "product" jika perlu referensi lain
+        stage.setScene(new Scene(root));
+        stage.setTitle("Detail Produk");
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
     public void displayCategories() {
     categoryPane.getChildren().removeIf(node ->

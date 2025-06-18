@@ -232,7 +232,6 @@ public class CartController {
                 return -1;
             }
 
-            // Check if cart is empty
             String checkCartItemsSql = "SELECT COUNT(*) FROM OrderItems WHERE OrderID = ?";
             try (PreparedStatement checkPstmt = conn.prepareStatement(checkCartItemsSql)) {
                 checkPstmt.setInt(1, cartOrderId);

@@ -32,7 +32,7 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <Button fx:id="Cart"  alignment="CENTER" cacheShape="false" centerShape="false" layoutX="769.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #ffffff;" text="Cart" textAlignment="CENTER" textFill="#00bc01">
+                  <Button fx:id="Cart" onMouseClicked="#handleCartClicked" alignment="CENTER" cacheShape="false" centerShape="false" layoutX="769.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #ffffff;" text="Cart" textAlignment="CENTER" textFill="#00bc01">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import projects.farmersbay.controller.Public.AuthController;
 import projects.farmersbay.model.User;
+import projects.farmersbay.view.Public.Home;
 
 public class Login {
     @FXML
@@ -82,6 +83,8 @@ public class Login {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/Main.fxml"));
                 Parent dashboardRoot = loader.load();
+                Home homeController = loader.getController();
+                homeController.setUserId(user.getId());
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(dashboardRoot));
                 stage.setTitle("FarmersBay");

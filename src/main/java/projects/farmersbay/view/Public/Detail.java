@@ -21,14 +21,14 @@ import javafx.scene.text.Text;
 import java.util.Map;
 import java.util.HashMap;
 import projects.farmersbay.controller.Public.AuthController;
-import projects.farmersbay.controller.Public.CartController; // Import CartController
+import projects.farmersbay.controller.Public.CartController;
 import javafx.stage.Stage;
 import projects.farmersbay.model.Items;
 import projects.farmersbay.model.OrderItem;
 
 
 public class Detail {
-    
+
     @FXML
     private ImageView Image;
 
@@ -43,39 +43,39 @@ public class Detail {
     private Items currentItem;
 
     private int currentUserId;
-    private final CartController cartController = new CartController(); // Inisialisasi CartController
+    private final CartController cartController = new CartController();
 
     public void setUserId(int userId) {
         this.currentUserId = userId;
     }
 
     public void setProductData(Items item) {
-        this.currentItem = item;
-        Title.setText(item.getTitle());
+        this.currentItem = Cart.getItemFromCacheOrPut(item);
+        Title.setText(currentItem.getTitle());
         NumberFormat formatRupiah = NumberFormat.getInstance(new Locale("id", "ID"));
-        String formattedPrice = formatRupiah.format(item.getPrice());
+        String formattedPrice = formatRupiah.format(currentItem.getPrice());
         Price.setText("Rp. " + formattedPrice);
-        Stock.setText("Stok: " + item.getStock());
-        Desc.setText(item.getDescription());
+        Stock.setText("Stok: " + currentItem.getStock());
+        Desc.setText(currentItem.getDescription());
 
         Map<Items, OrderItem> userCart = Cart.getUserCart(currentUserId);
-        if (userCart.containsKey(item)) {
-            int qty = userCart.get(item).getQuantity();
-            QuantityField.setText(String.valueOf(qty > 0 ? qty : 1));  // Hindari 0
+        if (userCart.containsKey(currentItem)) {
+            int qty = userCart.get(currentItem).getQuantity();
+            QuantityField.setText(String.valueOf(qty > 0 ? qty : 1));
         } else {
             QuantityField.setText("1");
         }
 
-        if (item.getImg() != null && !item.getImg().isEmpty()) {
-            Image.setImage(new Image(item.getImg()));
+        if (currentItem.getImg() != null && !currentItem.getImg().isEmpty()) {
+            Image.setImage(new Image(currentItem.getImg()));
         }
         QuantityField.textProperty().addListener((obs, oldVal, newVal) -> {
             try {
                 int qty = Integer.parseInt(newVal.trim());
                 if (qty < 1) {
                     QuantityField.setText("1");
-                } else if (qty > item.getStock()) {
-                    QuantityField.setText(String.valueOf(item.getStock()));
+                } else if (qty > currentItem.getStock()) {
+                    QuantityField.setText(String.valueOf(currentItem.getStock()));
                     showAlert("Melebihi Stok", "Jumlah melebihi stok tersedia!");
                 }
             } catch (NumberFormatException e) {
@@ -95,10 +95,8 @@ public class Detail {
                 QuantityField.setText(String.valueOf(qty));
             }
 
-            // Panggil addToCart dari CartController untuk menyimpan ke database
             cartController.addToCart(currentItem.getItemId(), qty);
 
-            // Lalu, update tampilan keranjang di memori UI (ini yang sudah ada)
             Map<Items, OrderItem> userCart = Cart.getUserCart(AuthController.currentUserId);
             if (!userCart.containsKey(currentItem)) {
                 OrderItem orderItem = new OrderItem(0, currentItem.getItemId(), qty);
@@ -110,7 +108,7 @@ public class Detail {
                 System.out.println("Quantity diperbarui di UI Cart: " + currentItem.getTitle() + " (Qty: " + orderItem.getQuantity() + ")");
             }
 
-            showAlert("Berhasil", "Produk berhasil ditambahkan ke keranjang."); 
+            showAlert("Berhasil", "Produk berhasil ditambahkan ke keranjang.");
         } catch (NumberFormatException e) {
             QuantityField.setText("1");
             showAlert("Input Salah", "Jumlah tidak valid. Telah diset ke 1.");
@@ -127,21 +125,21 @@ public class Detail {
 
     @FXML
     private void handleCartClicked(MouseEvent event) {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/cart.fxml")); 
-        Parent root = loader.load();
-        Cart cartController = loader.getController();
-        cartController.loadCart(); 
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.setTitle("Farmers Bay");
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/cart.fxml"));
+            Parent root = loader.load();
+            Cart cartController = loader.getController();
+            cartController.loadCart();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Farmers Bay");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    }
-    
+
     @FXML
     private void handlemainClick(MouseEvent event) {
         try {
@@ -174,31 +172,31 @@ public class Detail {
 
     @FXML
     private void handleUserClick(MouseEvent event) {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Konfirmasi Logout");
-    alert.setHeaderText("Anda yakin ingin keluar?");
-    alert.setContentText("Klik OK untuk logout, atau Cancel untuk tetap di halaman ini.");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Konfirmasi Logout");
+        alert.setHeaderText("Anda yakin ingin keluar?");
+        alert.setContentText("Klik OK untuk logout, atau Cancel untuk tetap di halaman ini.");
 
-    Optional<ButtonType> result = alert.showAndWait();
-    if (result.isPresent() && result.get() == ButtonType.OK) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/Auth/ChooseUser.fxml"));
-            Parent loginRoot = loader.load();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/Auth/ChooseUser.fxml"));
+                Parent loginRoot = loader.load();
 
-            Stage stage = (Stage) User.getScene().getWindow();  
-            Scene scene = new Scene(loginRoot);
+                Stage stage = (Stage) User.getScene().getWindow();
+                Scene scene = new Scene(loginRoot);
 
-            stage.setScene(scene);
-            stage.sizeToScene();
+                stage.setScene(scene);
+                stage.sizeToScene();
 
-            stage.setMinWidth(320);
-            stage.setMinHeight(450);
-            stage.setResizable(true);
+                stage.setMinWidth(320);
+                stage.setMinHeight(450);
+                stage.setResizable(true);
 
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
     }
 }

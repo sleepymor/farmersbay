@@ -52,18 +52,30 @@ public class Cart implements Initializable {
     private ImageView back;
 
     @FXML
-    private Button buy; 
+    private Button buy;
 
     private final CartController cartController = new CartController();
 
     public static Map<Items, OrderItem> getUserCart(int userId) {
-    return userCartMap.computeIfAbsent(userId, k -> new LinkedHashMap<>());
+        return userCartMap.computeIfAbsent(userId, k -> new LinkedHashMap<>());
     }
 
     private static final Map<Integer, Map<Items, OrderItem>> userCartMap = new HashMap<>();
-    private final Map<Items, Pane> itemPaneMap = new LinkedHashMap<>(); 
+    private final Map<Items, Pane> itemPaneMap = new LinkedHashMap<>();
 
-    private double nextY = 16; 
+    private static final Map<Integer, Items> globalItemCache = new HashMap<>();
+
+
+    public static Items getItemFromCacheOrPut(Items item) {
+        if (globalItemCache.containsKey(item.getItemId())) {
+            return globalItemCache.get(item.getItemId());
+        }
+
+        globalItemCache.put(item.getItemId(), item);
+        return item;
+    }
+
+    private double nextY = 16;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,28 +91,29 @@ public class Cart implements Initializable {
     }
 
     public void loadCart() {
-        cartpane.getChildren().clear(); 
-        cartpane.getChildren().add(back); 
-        itemPaneMap.clear(); 
-        nextY = 16; 
-        
+        cartpane.getChildren().clear();
+        cartpane.getChildren().add(back);
+        itemPaneMap.clear();
+        nextY = 16;
+
         Map<Items, OrderItem> userCart = getCurrentCart();
         for (Map.Entry<Items, OrderItem> entry : userCart.entrySet()) {
+ 
             createOrUpdateCartItemPane(entry.getKey(), entry.getValue().getQuantity());
         }
         updateTotalPrice();
-        realignCartItems(); 
+        realignCartItems();
     }
 
     private void createOrUpdateCartItemPane(Items item, int quantity) {
         Pane itemPane;
-        TextField quantityField; 
-        Label priceLabel; 
+        TextField quantityField;
+        Label priceLabel;
 
-        if (itemPaneMap.containsKey(item)) {
+         if (itemPaneMap.containsKey(item)) {
             itemPane = itemPaneMap.get(item);
-            quantityField = (TextField) itemPane.lookup("#quantityField_" + item.getItemId()); 
-            priceLabel = (Label) itemPane.lookup("#priceLabel_" + item.getItemId()); 
+            quantityField = (TextField) itemPane.lookup("#quantityField_" + item.getItemId());
+            priceLabel = (Label) itemPane.lookup("#priceLabel_" + item.getItemId());
         } else {
             itemPane = new Pane();
             itemPane.setPrefSize(524, 138);
@@ -114,7 +127,7 @@ public class Cart implements Initializable {
 
             ImageView image = new ImageView();
             try {
-                if (item.getImg() != null && !item.getImg().isEmpty()) { 
+                if (item.getImg() != null && !item.getImg().isEmpty()) {
                     image.setImage(new Image(item.getImg()));
                 } else {
 
@@ -142,15 +155,15 @@ public class Cart implements Initializable {
             stock.setLayoutY(32);
 
             quantityField = new TextField();
-            quantityField.setId("quantityField_" + item.getItemId()); 
+            quantityField.setId("quantityField_" + item.getItemId());
             quantityField.setFont(Font.font("System", 12));
             quantityField.setStyle("-fx-border-color: #00bc01;");
             quantityField.setPrefWidth(50);
             quantityField.setLayoutX(155);
             quantityField.setLayoutY(60);
-            
+
             priceLabel = new Label();
-            priceLabel.setId("priceLabel_" + item.getItemId()); 
+            priceLabel.setId("priceLabel_" + item.getItemId());
             priceLabel.setFont(Font.font("System", FontWeight.BOLD, item.getPrice() >= 1_000_000 ? 12 : 16));
             priceLabel.setLayoutX(155);
             priceLabel.setLayoutY(92);
@@ -165,10 +178,10 @@ public class Cart implements Initializable {
             deleteBtn.setOnMouseClicked((MouseEvent event) -> {
                 cartpane.getChildren().remove(itemPane);
                 itemPaneMap.remove(item);
-                getCurrentCart().remove(item);
+                getCurrentCart().remove(item); 
                 realignCartItems();
                 updateTotalPrice();
-                showAlert("Item Dihapus", "Produk berhasil dihapus dari keranjang."); // Menambahkan notifikasi
+                showAlert("Item Dihapus", "Produk berhasil dihapus dari keranjang.");
             });
 
             itemPane.getChildren().addAll(image, title, stock, quantityField, priceLabel, deleteBtn);
@@ -182,14 +195,20 @@ public class Cart implements Initializable {
                     if (qty > item.getStock()) {
                         qty = item.getStock();
                         quantityField.setText(String.valueOf(qty));
-                        showAlert("Melebihi Stok", "Jumlah melebihi stok tersedia!"); 
+                        showAlert("Melebihi Stok", "Jumlah melebihi stok tersedia!");
                     }
-                    getCurrentCart().get(item).setQuantity(qty);
+            
+                    OrderItem order = getCurrentCart().get(item);
+                    if (order != null) {
+                        order.setQuantity(qty);
+                    } else {
+                        getCurrentCart().put(item, new OrderItem(0, item.getItemId(), qty));
+                    }
                     updateItemPriceLabel(item, qty, priceLabel);
                     updateTotalPrice();
                 } catch (NumberFormatException e) {
-                    quantityField.setText("0"); 
-                    updateItemPriceLabel(item, 0, priceLabel); 
+                    quantityField.setText("0");
+                    updateItemPriceLabel(item, 0, priceLabel);
                     updateTotalPrice();
                 }
             });
@@ -221,7 +240,7 @@ public class Cart implements Initializable {
             Parent root = loader.load();
 
             Home homeController = loader.getController();
-            homeController.displayProduct(); 
+            homeController.displayProduct();
 
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.setScene(new Scene(root));
@@ -231,7 +250,7 @@ public class Cart implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     private void filterCartItems(String keyword) {
         double y = 16;
         for (Map.Entry<Items, Pane> entry : itemPaneMap.entrySet()) {
@@ -239,21 +258,21 @@ public class Cart implements Initializable {
             Pane pane = entry.getValue();
 
             if (keyword.isEmpty() || item.getTitle().toLowerCase().contains(keyword)) {
-                pane.setVisible(true); 
-                pane.setLayoutY(y); 
+                pane.setVisible(true);
+                pane.setLayoutY(y);
                 y += 138 + 4;
             } else {
-                pane.setVisible(false); 
+                pane.setVisible(false);
             }
         }
         nextY = y;
-        cartpane.setPrefHeight(nextY + 30); 
+        cartpane.setPrefHeight(nextY + 30);
     }
 
     private void realignCartItems() {
         double y = 16;
-        for (Pane pane : itemPaneMap.values()) { 
-            if (pane.isVisible()) { 
+        for (Pane pane : itemPaneMap.values()) {
+            if (pane.isVisible()) {
                 pane.setLayoutY(y);
                 y += 138 + 4;
             }
@@ -263,20 +282,20 @@ public class Cart implements Initializable {
     }
 
     private void openProductDetail(Items item) {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/productpage.fxml"));
-        Parent root = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/productpage.fxml"));
+            Parent root = loader.load();
 
-        Detail controller = loader.getController();
-        controller.setProductData(item);   
+            Detail controller = loader.getController();
+            controller.setProductData(item);
 
-        Stage stage = (Stage) cartpane.getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Farmers Bay");
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+            Stage stage = (Stage) cartpane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Farmers Bay");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateTotalPrice() {
@@ -365,17 +384,17 @@ public class Cart implements Initializable {
             int orderId = cartController.checkout();
             if (orderId != -1) {
                 showAlert("Pembelian Berhasil", "Pesanan Anda (ID: " + orderId + ") telah berhasil diproses!");
-                
-              
+
+
                 getCurrentCart().clear();
                 loadCart();
-                
-             
+
+
                 navigateToMain(event);
 
             } else {
                 showAlert("Pembelian Gagal", "Terjadi masalah saat memproses pesanan Anda. Mohon periksa kembali stok atau coba lagi.");
-                loadCart(); 
+                loadCart();
             }
         }
     }

@@ -40,7 +40,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="Cart" alignment="CENTER" layoutX="767.0" layoutY="37.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #00bc01;" text="Cart" textFill="WHITE">
+                  <Button fx:id="Cart" onMouseClicked="#handleCartClicked" alignment="CENTER" layoutX="767.0" layoutY="37.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #00bc01;" text="Cart" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -69,7 +69,7 @@
                         <Font name="System Bold" size="29.0" />
                      </font>
                   </Text>
-                  <TextField alignment="CENTER" centerShape="false" layoutX="218.0" layoutY="82.0" prefHeight="25.0" prefWidth="81.0" promptText="0" style="-fx-border-color: #00bc01;" text="0">
+                  <TextField fx:id="QuantityField" alignment="CENTER" centerShape="false" layoutX="218.0" layoutY="82.0" prefHeight="25.0" prefWidth="81.0" promptText="0" style="-fx-border-color: #00bc01;" text="0">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
@@ -94,7 +94,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button fx:id="buy" alignment="CENTER" layoutX="309.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" style="-fx-background-color: #00bc01;" text="Add to Cart" textFill="WHITE">
+                  <Button fx:id="buy" onMouseClicked="#handleAddToCart" alignment="CENTER" layoutX="309.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" style="-fx-background-color: #00bc01;" text="Add to Cart" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

@@ -3,10 +3,8 @@ package projects.farmersbay.view.Public;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -32,8 +30,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import projects.farmersbay.controller.Public.CartController;
 import projects.farmersbay.controller.Public.AuthController;
+import projects.farmersbay.controller.Public.CartController;
 import projects.farmersbay.model.Items;
 import projects.farmersbay.model.OrderItem;
 
@@ -381,11 +379,16 @@ public class Cart implements Initializable {
 
         Optional<ButtonType> result = confirmAlert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
+            Map<Items, OrderItem> itemsToCheckout = new HashMap<>(getCurrentCart());
             int orderId = cartController.checkout();
             if (orderId != -1) {
                 showAlert("Pembelian Berhasil", "Pesanan Anda (ID: " + orderId + ") telah berhasil diproses!");
-
-
+                for (Map.Entry<Items, OrderItem> entry : itemsToCheckout.entrySet()) {
+                Items purchasedItem = entry.getKey();
+                int purchasedQuantity = entry.getValue().getQuantity();
+                int newStock = purchasedItem.getStock() - purchasedQuantity;
+                purchasedItem.setStock(newStock);
+            }
                 getCurrentCart().clear();
                 loadCart();
 

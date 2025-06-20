@@ -383,11 +383,11 @@ public class Cart implements Initializable {
             int orderId = cartController.checkout();
             if (orderId != -1) {
                 showAlert("Pembelian Berhasil", "Pesanan Anda (ID: " + orderId + ") telah berhasil diproses!");
-                 for (Map.Entry<Items, OrderItem> entry : itemsToCheckout.entrySet()) {
+                for (Map.Entry<Items, OrderItem> entry : itemsToCheckout.entrySet()) {
                 Items purchasedItem = entry.getKey();
                 int purchasedQuantity = entry.getValue().getQuantity();
                 int newStock = purchasedItem.getStock() - purchasedQuantity;
-                purchasedItem.setStock(newStock); // Ini akan memperbarui objek di globalItemCache
+                purchasedItem.setStock(newStock);
             }
                 getCurrentCart().clear();
                 loadCart();
